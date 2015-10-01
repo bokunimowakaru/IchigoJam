@@ -1,0 +1,7 @@
+' CC BY Wataru KUNINO
+cls:new
+1 'BUG
+10 A=L5
+20 B=2
+30 C=A/B*2
+40 ? A,B,C

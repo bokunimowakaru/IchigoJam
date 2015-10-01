@@ -1,0 +1,8 @@
+' CC BY Wataru KUNINO
+cls:new
+1 'SENSOR TX
+2 CLS
+10 A=ANA(2)
+60 ? A
+70 WAIT 60
+80 GOTO 10

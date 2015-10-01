@@ -1,0 +1,12 @@
+' CC BY Wataru KUNINO
+cls:new
+1 'SENSOR TEST
+2 CLS
+10 A=ANA(2)
+20 LC 0,0
+30 FOR I=0 TO 7
+40 IF A>I*100 ?"#"; ELSE ?"=";
+50 NEXT
+60 LC 0,1:? A;"  ";
+70 WAIT 60
+80 GOTO 10
