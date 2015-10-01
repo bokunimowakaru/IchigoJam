@@ -1,0 +1,2 @@
+# IchigoJam
+IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムおよびプログラムに必要な各種情報などの保存用フォルダ
