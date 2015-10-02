@@ -1,0 +1,14 @@
+UART制御コード
+
+	CLS 19, 12			(0x13 0x0C)
+	SCROLL 左　21, 28	(0x15 0x1C)
+	SCROLL 右　21, 29	(0x15 0x1D)
+	SCROLL 上　21, 30	(0x15 0x1E)
+	SCROLL 下　21, 31	(0x15 0x1F)
+	LOCATE 21, 32+X,32+Y
+
+改行コード
+
+	LF		0x0A(10)
+
+
