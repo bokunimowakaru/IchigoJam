@@ -6,5 +6,6 @@
 	#900-#BFF VRAM領域
 	#C00-#FFF プログラム領域
 
+使用例
 	fori=#C00to#C1F:?hex$(i,3),chr$(peek(i)),peek(i):next
 
