@@ -12,4 +12,8 @@ IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムお�
 参考文献
 
 作成にあたり以下の情報を参照しました。  
-- Facebook IchigoJam-FANグループ  
+- http://ichigojam.net/IchigoJam.html CC BY http://ichigojam.net/  
+- Facebook IchigoJam-FANグループ https://www.facebook.com/groups/ichigojam/  
+- http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/  
+- http://www.aitendo.com/  
+
