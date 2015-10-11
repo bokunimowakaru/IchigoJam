@@ -17,3 +17,4 @@ IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムお�
 - http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/  
 - http://www.aitendo.com/  
 
+by 国野 亘 http://www.geocities.jp/bokunimowakaru/q/15/
