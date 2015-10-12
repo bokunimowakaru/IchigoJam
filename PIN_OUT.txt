@@ -162,6 +162,9 @@ OUT 8,1でH出力を行います。22kΩだったVCC～IN1端子間の抵抗値�
 - Facebook IchigoJam-FANグループ
     https://www.facebook.com/groups/ichigojam/
 
+- ichigojam-1.1b6.zipの新バージョン(アップロード)
+    https://www.facebook.com/groups/ichigojam/634011960071894/
+
 - IchigoJam BASIC コマンド一覧 GitHub:fu-sen/IchigoJam-BASIC 
     https://github.com/fu-sen/IchigoJam-BASIC
 ----------------------------------------------------------------

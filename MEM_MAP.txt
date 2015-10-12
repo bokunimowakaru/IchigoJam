@@ -1,19 +1,19 @@
 メモリマップ
 
-	#000-#6FF キャラクタ領域（固定）
-	#700-#7FF キャラクタ領域（書き込み可能）
-	#800-#8FF 変数領域
-	#900-#BFF VRAM領域
-	#C00-#FFF プログラム領域
+    #000-#6FF キャラクタ領域（固定）
+    #700-#7FF キャラクタ領域（書き込み可能）
+    #800-#8FF 変数領域
+    #900-#BFF VRAM領域
+    #C00-#FFF プログラム領域
 
 IchigoJam BASIC コマンド
 
-	「HELP」にてメモリマップ表示が可能
-	(但し、Ver 1.1で削除される可能性がある)
+    「HELP」にてメモリマップ表示が可能
+    (但し、Ver 1.1で削除される可能性がある)
 
 使用例
 
-	fori=#C00to#C1F:?hex$(i,3),chr$(peek(i)),peek(i):next
+    fori=#C00to#C1F:?hex$(i,3),chr$(peek(i)),peek(i):next
 
 ----------------------------------------------------------------
 ライセンス・著作権表示
@@ -28,7 +28,10 @@ IchigoJam BASIC コマンド
 作成にあたり以下の情報を参照しました。
 
 - http://ichigojam.net/IchigoJam.html
-	CC BY http://ichigojam.net/
+    CC BY http://ichigojam.net/
 
 - Facebook IchigoJam-FANグループ
-	https://www.facebook.com/groups/ichigojam/
+    https://www.facebook.com/groups/ichigojam/
+
+- ichigojam-1.1b6.zipの新バージョン(アップロード)
+    https://www.facebook.com/groups/ichigojam/634011960071894/
