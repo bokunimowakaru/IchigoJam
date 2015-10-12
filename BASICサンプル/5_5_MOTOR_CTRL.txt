@@ -1,4 +1,5 @@
-' CC BY Wataru KUNINO
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
 cls:new
 1 'MOTOR CAR Controller
 10 B=0  :'PWMŶ޻

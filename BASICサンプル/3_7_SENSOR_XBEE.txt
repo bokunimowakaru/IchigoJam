@@ -1,4 +1,5 @@
-' CC BY Wataru KUNINO
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
 cls:new
 1 'Sensor for XBee
 10 BPS 9600
