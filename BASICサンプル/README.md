@@ -1,8 +1,8 @@
 このプログラムはクリエイティブコモンズライセンス・表示(CC BY)にしたがって、  
 複製・改変・再配布することが可能です。  
   
-　　　　　　　　　　　　　　　　CC BY Copyright 2015 Wataru KUNINO
-　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/
+　　　　　　　　　　　　　　　　CC BY Copyright 2015 Wataru KUNINO  
+　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/  
   
 　・著作権表示を残してください。(合理的な方法でかまいません。)  
 　・「IchigoJam」は株式会社 jig.jp の登録商標です。  
@@ -19,7 +19,7 @@
 サポートページについて  
   
 　・本書だけで分からない点についは下記のページを参照ください  
-　　http://www.geocities.jp/bokunimowakaru/q/15  
+　　http://www.geocities.jp/bokunimowakaru/q/15/  
   
 最新版ソフトウェアについて  
   
