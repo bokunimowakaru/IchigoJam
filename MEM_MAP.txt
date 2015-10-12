@@ -1,4 +1,4 @@
-メモリマップ
+■ メモリマップ(IchigoJam相対アドレス)
 
     #000-#6FF キャラクタ領域（固定）
     #700-#7FF キャラクタ領域（書き込み可能）
@@ -6,14 +6,30 @@
     #900-#BFF VRAM領域
     #C00-#FFF プログラム領域
 
-IchigoJam BASIC コマンド
+■ IchigoJam BASIC コマンド
 
     「HELP」にてメモリマップ表示が可能
     (但し、Ver 1.1で削除される可能性がある)
 
-使用例
+■ 使用例
 
     fori=#C00to#C1F:?hex$(i,3),chr$(peek(i)),peek(i):next
+
+■ 相対アドレスの基準ポインタ
+
+    マシン語呼び出しの第二パラメータにMEM#000の基準ポインタ
+    (IchigoJam BASIC Version 1.1からの対応予定)
+
+            #include 
+
+            int16_t usr_calc(int16_t val, char* mem) {
+                int i;
+                for (i = 0; i < 32 * 24; i++) {
+                    mem[i + 0x900] = val;
+                }
+                return 0;
+            }
+                                    http://fukuno.jig.jp/1173
 
 ----------------------------------------------------------------
 ライセンス・著作権表示
@@ -35,3 +51,6 @@ IchigoJam BASIC コマンド
 
 - ichigojam-1.1b6.zipの新バージョン(アップロード)
     https://www.facebook.com/groups/ichigojam/634011960071894/
+
+- マシン語の凄さ体感プログラム CC BY 4.0 福野泰介
+    http://fukuno.jig.jp/1173
