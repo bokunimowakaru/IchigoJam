@@ -34,9 +34,8 @@ IchigoJam用として推奨されている EEPROM IC の情報
     6   SCL VCC(プルアップ)につなぎつつ、EX1へ
     5   SDA VCC(プルアップ)につなぎつつ、IN3へ
     ------------------------------------------------------------
-                                        本情報は下記を基に改変
+       　　      本情報は下記情報(CC BYライセンス)を基にしました。
                                         http://fukuno.jig.jp/915
-                                        CC BY 福野泰介 / @taisukef
 
 EEPROMカセット情報（正確にはEEPROMモジュール）
 ￣￣￣￣￣￣￣￣￣
@@ -157,7 +156,14 @@ Ver 1.1.xからはIN4端子を出力にすることが出来るので、重要�
 ----------------------------------------------------------------
 参考文献
 
-作成にあたり以下の情報を参照しました。  
-- Facebook IchigoJam-FANグループ  
-- http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/  
+作成にあたり以下の情報を参照しました。
+
+- http://ichigojam.net/IchigoJam.html
+	CC BY http://ichigojam.net/
+
+- Facebook IchigoJam-FANグループ
+	https://www.facebook.com/groups/ichigojam/
+
+- http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/
+
 - http://www.aitendo.com/

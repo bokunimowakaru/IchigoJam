@@ -25,5 +25,10 @@ IchigoJam BASIC コマンド
 ----------------------------------------------------------------
 参考文献
 
-作成にあたり以下の情報を参照しました。  
-- Facebook IchigoJam-FANグループ  
+作成にあたり以下の情報を参照しました。
+
+- http://ichigojam.net/IchigoJam.html
+	CC BY http://ichigojam.net/
+
+- Facebook IchigoJam-FANグループ
+	https://www.facebook.com/groups/ichigojam/
