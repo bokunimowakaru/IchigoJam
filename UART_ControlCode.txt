@@ -3,6 +3,8 @@ IchigoJamのUARTシリアル制御に関する情報
 IchigoJamで使用する改行コード
 ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
     LF      0x0A(10)
+    
+    但し、UART 3を設定するとCR+LFに変更可能
 
 BPS(ビットレート設定)命令
 ￣￣￣￣￣￣￣￣￣￣￣￣￣
@@ -20,15 +22,17 @@ BPS(ビットレート設定)命令
 
 	注意：この設定はリセットで解除される。
 
-UART(シリアル出力制御)命令
-￣￣￣￣￣￣￣￣￣￣￣
-    UART 0  IchigoJamからのUART送信をオフにします。
-    UART 1  PRINT命令(?命令)のみUARTから送信します。(画面制御出力なし)
-    UART 2  UART画面制御コードを出力します。(次節の画面制御コード出力)
+UART(シリアル出力制御)モード設定
+￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+    UART 0  IchigoJamからのUART送信オフ
+    UART 1  PRINT命令(?命令)のみUART送信(画面制御出力なし)
+    UART 2  UART画面制御コードを出力(次節の画面制御コード出力)
+    UART 3  PRINT命令(?命令)のみUART送信・改行コードCR+LF・バッファ有
     LC 0,1  テレビ画面への出力を行わずにUART送信する。
 
 	注意：この設定はリセットで解除される。
-
+	UART命令はVersion 1.1以降に対応される予定
+	
 UART画面制御コード
 ￣￣￣￣￣￣￣￣￣
     CLS         19, 12   (0x13, 0x0C)
@@ -90,3 +94,7 @@ UARTからのBASICコマンド実行方法
 
 - Facebook IchigoJam-FANグループ
 	https://www.facebook.com/groups/ichigojam/
+
+- fu-sen/IchigoJam-BASIC 
+	https://github.com/fu-sen/IchigoJam-BASIC/blob/master/UART.txt
+	
