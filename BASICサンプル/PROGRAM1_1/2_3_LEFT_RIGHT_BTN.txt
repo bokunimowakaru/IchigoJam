@@ -1,0 +1,11 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 CLS:?"LEFT RIGHT BTN"
+10 X=16
+110 LC X,20:?"O"
+120 LC 15,0:? X;" "
+210 WAIT 3:LC X,20:?" "
+220 IF BTN(LEFT) THEN X=X-1
+230 IF BTN(RIGHT) THEN X=X+1
+290 GOTO 110

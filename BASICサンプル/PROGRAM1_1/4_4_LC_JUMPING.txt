@@ -1,0 +1,46 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 'LCD JUMPING
+10 CLS:BEEP:GOSUB 800
+20 X=2:'Öº
+30 Y=0:'ÀÃ
+40 P=0:'ÃÝ½³
+50 D=0:'¿¸ÄÞ
+60 LET [0],95,45,95,45,255
+100 'GAME
+110 GOSUB 700:'Key
+120 IF K=1 AND X>0 THEN X=X-1
+130 IF K=2 AND X<7 THEN X=X+1
+140 IF K/2=1 AND Y=0 THEN D=1
+150 Y=Y+D:W=W+1
+160 if Y=3 then D=-1:P=P+1
+170 if Y=0 then D=0
+180 IF W<5-P/5 GOTO 210
+190 SCROLL 3:W=0
+200 IF RND(8)=0 LC 7,1:? "."
+210 T=VPEEK(X,Y<2)
+220 IF T=46 GOTO 400
+230 LC 5,0:?" ";P
+240 LC X,Y<2:? CHR$([Y])
+250 GOSUB 900
+260 LC X,Y<2:? CHR$(T)
+270 GOTO 100
+400 'END
+410 LC X,1:? "X":GOSUB 900
+420 BEEP 50
+430 GOSUB 700:IF K<5 GOTO 430
+440 IF K=7 CLS:END
+450 GOTO 1
+700 'KEYPAD
+710 K=inkey():ifKletK,K&3+1:return
+720 K=~IN()&#F:K=K+K>>1&4:K=K&7
+730 return
+800 'LCD INIT
+810 poke#700,64,0,2,#C0,57,17,#70,86,#6C,56,12
+820 ifi2cw(62,#701,1,#704,5)?"E"
+830 wait12
+840 ifi2cw(62,#701,1,#709,2)?"E"
+900 'LCD OUT
+910 ifi2cw(62,#701,1,#702,1)+i2cw(62,#700,1,#900,8)+i2cw(62,#701,1,#703,1)+i2cw(62,#700,1,#920,8)?"E"
+920 return

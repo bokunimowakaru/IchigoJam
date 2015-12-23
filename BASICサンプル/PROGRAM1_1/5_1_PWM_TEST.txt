@@ -1,0 +1,16 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 'PWM TEST
+10 B=5  :'PWMÅ¶Þ»
+20 C=#1 :'PWMº°ÄÞ
+100 'MAIN
+110 OUT C
+120 FOR I=0 TO B:NEXT
+130 OUT #0
+140 FOR I=0 TO 10-B:NEXT
+150 K=INKEY():IF K=0 GOTO 100
+160 IF K=30 AND B<10 THEN B=B+1
+170 IF K=31 AND B>=0 THEN B=B-1
+180 PRINT"B=";B
+190 IF B>=0 GOTO 100
