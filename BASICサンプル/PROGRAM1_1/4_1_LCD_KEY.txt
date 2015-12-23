@@ -1,0 +1,23 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+100 CLS:?"LCD+KEY"
+110 GOSUB 800
+200 'MAIN
+210 GOSUB 700
+220 IF K=0 GOTO 200
+230 LC 0,1:? K;
+240 GOSUB 900:GOTO 200
+700 'KEYPAD
+710 K=inkey():ifKletK,K&3+1:return
+720 K=~IN()&#F:K=K+K>>1&4:K=K&7
+730 return
+800 'LCD INIT
+810 poke#700,64,0,2,#C0,57,17,#70,86,#6C,56,12
+820 ifi2cw(62,#701,1,#704,5)?"E"
+830 wait12
+840 ifi2cw(62,#701,1,#709,2)?"E"
+900 'LCD OUT
+910 ifi2cw(62,#701,1,#702,1)+i2cw(62,#700,1,#900,8)+i2cw(62,#701,1,#703,1)+i2cw(62,#700,1,#920,8)?"E"
+920 return
+

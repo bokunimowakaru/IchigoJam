@@ -1,0 +1,8 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 'BUG
+10 A=L5
+20 B=2
+30 C=A/B*2
+40 ? A,B,C

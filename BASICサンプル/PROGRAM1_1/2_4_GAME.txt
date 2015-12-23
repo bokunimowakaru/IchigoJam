@@ -1,0 +1,17 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 CLS:'GAME
+10 X=16
+110 LC X,20:?"O"
+130 LC 1,0:?"I":LC 30,0:?"I"
+140 LC RND(28)+2,0:?"I"
+190 WAIT 5
+200 LC X,20:?" "
+210 K=INKEY()
+220 IF K=28 THEN X=X-1
+230 IF K=29 THEN X=X+1
+310 SCROLL 2
+320 V=VPEEK(X,20)
+340 IF V=0 GOTO 110
+410 LC 0,23:? "GAME OVER"

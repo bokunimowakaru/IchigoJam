@@ -1,0 +1,34 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 CLS:'RACING GAME
+10 X=16:'X»ÞË®³
+20 C=8:'ÄÞ³Û
+30 P=0:'½º±
+40 FOR I=0 TO 7
+50 LC I,0:?"-":LC I+24,0:?"-"
+60 NEXT
+100 'Ë®³¼Þ
+110 LC X,20:?"O"
+120 LC 0,23:?"POINT=";P;
+130 LC C,0:?"|":LC C+15,0:?"|"
+140 LC RND(14)+C+1,0:?"."
+150 R=RND(50)
+160 IF R<14 LC R+C+1,0:?"$"
+170 IF R<20 AND C>1 THEN C=C-1
+180 IF R>30 AND C<15 THEN C=C+1
+190 WAIT 10-P/10
+200 LC X,20:?" "
+210 K=INKEY()
+220 IF K=28 THEN X=X-1
+230 IF K=29 THEN X=X+1
+300 'ÊÝÃ²
+310 SCROLL 2
+320 V=VPEEK(X,20)
+330 IF V=36 BEEP 1:P=P+10:V=0
+340 IF V=0 GOTO 110
+400 '¼®³ÄÂ
+410 BEEP 20,10
+420 LC X,20:?"X"
+430 LC 0,23:?"SCORE=";P;
+440 ?" GAME OVER"

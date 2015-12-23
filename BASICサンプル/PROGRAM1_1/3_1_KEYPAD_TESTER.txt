@@ -1,0 +1,10 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+100 ?"Keypad Tester"
+110 A=!IN(4)<<2
+120 A=A+!IN(2)<<1
+130 A=A+!IN(1)
+140 IF B<>A PRINT A
+150 B=A
+160 GOTO 110

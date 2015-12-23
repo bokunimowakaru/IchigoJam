@@ -1,0 +1,10 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 ?"ENSYUU"
+10 A=15
+20 B=A*100
+30 C=A*B
+40 ? A,B,C
+50 A=A+B+C
+60 ? A

@@ -1,0 +1,34 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 'LEFT RIGHT LCD
+10 CLS:BEEP:GOSUB 800
+20 X=4:'Öº
+30 Y=2:'ÀÃ
+100 'MOVE
+110 GOSUB 700
+120 IF K=1 AND X>0 THEN X=X-1
+130 IF K=2 AND X<7 THEN X=X+1
+140 IF K=3 AND Y<4 THEN Y=Y+1
+150 IF K=4 AND Y>0 THEN Y=Y-1
+200 'OUT
+210 IF Y=0 LC X,1:? "_"
+220 IF Y=1 LC X,1:? "-"
+230 IF Y=2 LC X,0:? "_"
+240 IF Y=3 LC X,0:? "-"
+250 IF Y=4 LC X,0:? "ÿ"
+260 GOSUB 900
+270 LC X,Y<2:?" "
+280 GOTO 100
+700 'KEYPAD
+710 K=inkey():ifKletK,K&3+1:return
+720 K=~IN()&#F:K=K+K>>1&4:K=K&7
+730 return
+800 'LCD INIT
+810 poke#700,64,0,2,#C0,57,17,#70,86,#6C,56,12
+820 ifi2cw(62,#701,1,#704,5)?"E"
+830 wait12
+840 ifi2cw(62,#701,1,#709,2)?"E"
+900 'LCD OUT
+910 ifi2cw(62,#701,1,#702,1)+i2cw(62,#700,1,#900,8)+i2cw(62,#701,1,#703,1)+i2cw(62,#700,1,#920,8)?"E"
+920 return

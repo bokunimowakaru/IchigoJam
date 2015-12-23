@@ -1,0 +1,11 @@
+' CC BY Copyright(C)2015 Wataru KUNINO
+' http://www.geocities.jp/bokunimowakaru/q/15/
+cls:new
+1 CLS:?"LEFT RIGHT"
+10 X=16
+110 LC X,20:?"O"
+120 LC 15,0:? X;" "
+210 K=INKEY()
+220 IF K=28 LC X,20:?" ":X=X-1
+230 IF K=29 LC X,20:?" ":X=X+1
+290 GOTO 110
