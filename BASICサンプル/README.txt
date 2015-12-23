@@ -1,50 +1,51 @@
-���̃v���O�����̓N���G�C�e�B�u�R�����Y���C�Z���X�E�\��(CC BY)�ɂ��������āA
-�����E���ρE�Ĕz�z���邱�Ƃ��\�ł��B
+このプログラムはクリエイティブコモンズライセンス・表示(CC BY)にしたがって、
+複製・改変・再配布することが可能です。
 
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@CC BY Copyright 2015 Wataru KUNINO
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@http://www.geocities.jp/bokunimowakaru/
+　　　　　　　　　　　　　　　　CC BY Copyright 2015 Wataru KUNINO
+　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/
 
-�@�E���쌠�\�����c���Ă��������B(�����I�ȕ��@�ł��܂��܂���B)
-�@�E�uIchigoJam�v�͊������ jig.jp �̓o�^���W�ł��B
-�@�@(�{�����͊������ jig.jp ���쐬�������̂ł͂���܂���B)
-�@�E���C�Z���X���e�ɂ��Ă͉��L���Q�Ƃ��Ă��������B
-�@�@http://creativecommons.org/licenses/by/4.0/deed.ja
-
-
-�t�H���_�ɂ���
-
-�@�EPROGRAM1_0
-�@�@�{���̓��e�Ɠ����v���O���������^�����t�H���_�ł��B
-�@�@IchigoJam BASIC Version 1.0.1�œ���m�F�ςł��B
-
-�@�EPROGRAM1_1
-�@�@IchigoJam BASIC Version 1.1.1�œ���m�F�ςł��B
-
-�@�ETOOLS
-�@�@�{���Ŏg�p����\�t�g�E�F�A�Ɋւ���������^�����t�H���_�ł��B
+　・著作権表示を残してください。(合理的な方法でかまいません。)
+　・「IchigoJam」は株式会社 jig.jp の登録商標です。
+　　(本資料は株式会社 jig.jp が作成したものではありません。)
+　・ライセンス内容については下記を参照してください。
+　　http://creativecommons.org/licenses/by/4.0/deed.ja
 
 
-�T�|�[�g�y�[�W�ɂ���
+フォルダについて
 
-�@�E�{�������ŕ�����Ȃ��_�ɂ��͉��L�̃y�[�W���Q�Ƃ�������
-�@�@http://www.geocities.jp/bokunimowakaru/q/15/
+　・PROGRAM1_0
+　　本書の内容と同じプログラムを収録したフォルダです。
+　　IchigoJam BASIC Version 1.0.1で動作確認済です。
+
+　・PROGRAM1_1
+　　IchigoJam BASIC Version 1.1.1用です。（暫定版）
+　　新バージョンに対応するために本書のプログラムの一部を修正しました。
+
+　・TOOLS
+　　本書で使用するソフトウェアに関する情報を収録したフォルダです。
 
 
-�ŐV�Ń\�t�g�E�F�A�ɂ���
+サポートページについて
 
-�@�E�ŐV�ł̃\�t�g�E�F�A�͉��L����_�E�����[�h���邱�Ƃ��o���܂��B
-�@�@http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
+　・本書だけで分からない点についは下記のページを参照ください
+　　http://www.geocities.jp/bokunimowakaru/cq/15/
 
 
-�Q�l�����Ɋւ���
+最新版ソフトウェアについて
 
-�@�@�{�\�t�g�E�F�A�̍쐬�ɂ�����A�������jig.jp��IchigoJam�֘A���y�� 
-�@�@IchigoJam-FAN(facebook)�̏����Q�l�ɂ��܂����B
+　・最新版のソフトウェアは下記からダウンロードすることが出来ます。
+　　http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
 
-�@�@�@�@IchigoJam�֘A���
-�@�@�@�@http://ichigojam.net/
 
-�@�@�@�@IchigoJam-FAN(facebook)
-�@�@�@�@https://www.facebook.com/groups/ichigojam/
+参考資料に関して
 
-�ȏ�
+　　本ソフトウェアの作成にあたり、株式会社jig.jpのIchigoJam関連情報及び 
+　　IchigoJam-FAN(facebook)の情報を参考にしました。
+
+　　　　IchigoJam関連情報
+　　　　http://ichigojam.net/
+
+　　　　IchigoJam-FAN(facebook)
+　　　　https://www.facebook.com/groups/ichigojam/
+
+以上
