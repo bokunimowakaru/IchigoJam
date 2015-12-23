@@ -1,54 +1,54 @@
-���̃v���O�����̓N���G�C�e�B�u�R�����Y���C�Z���X�E�\��(CC BY)�ɂ��������āA
-�����E���ρE�Ĕz�z���邱�Ƃ��\�ł��B
+このプログラムはクリエイティブコモンズライセンス・表示(CC BY)にしたがって、
+複製・改変・再配布することが可能です。
 
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@CC BY Copyright 2015 Wataru KUNINO
-�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@�@http://www.geocities.jp/bokunimowakaru/
+　　　　　　　　　　　　　　　　CC BY Copyright 2015 Wataru KUNINO
+　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/
 
-�@�E���쌠�\�����c���Ă��������B(�����I�ȕ��@�ł��܂��܂���B)
-�@�E�uIchigoJam�v�͊������ jig.jp �̓o�^���W�ł��B
-�@�@(�{�����͊������ jig.jp ���쐬�������̂ł͂���܂���B)
-�@�E���C�Z���X���e�ɂ��Ă͉��L���Q�Ƃ��Ă��������B
-�@�@http://creativecommons.org/licenses/by/4.0/deed.ja
+　・著作権表示を残してください。(合理的な方法でかまいません。)
+　・「IchigoJam」は株式会社 jig.jp の登録商標です。
+　　(本資料は株式会社 jig.jp が作成したものではありません。)
+　・ライセンス内容については下記を参照してください。
+　　http://creativecommons.org/licenses/by/4.0/deed.ja
 
 
-����m�F�o�[�W�����ɂ���
+動作確認バージョンについて
 
-�@�E�{�\�t�g�E�F�A��IchigoJam BASIC Version 1.1.1�œ���m�F���Ă��܂��B
-�@�EVersion 1.2�ȍ~�ւ̑Ή��ɂ��Ă̓T�|�[�g�y�[�W�Ȃǂ��������������B
+　・本ソフトウェアはIchigoJam BASIC Version 1.1.1で動作確認しています。
+　・Version 1.2以降への対応についてはサポートページなどをご覧ください。
 
-�{���Ƃ̈Ⴂ�ɂ���
+本書との違いについて
 
-�@IchigoJam�̃o�[�W�����̈Ⴂ�ɑΉ����邽�߂Ɉȉ��̏C�����s���܂����B
+　IchigoJamのバージョンの違いに対応するために以下の修正を行いました。
 
-�@�E3_3_SENSOR_TX.txt�@�@�@�@�s�ԍ� 3 UART 1:' Ver 1.1
-�@�E3_4_BLUE2CN.txt�@�@�@�@�@�s�ԍ�10 UART1:GOSUB 800
-�@�E3_5_BLUE2INIT.txt�@�@�@�@�s�ԍ�10 UART1:GOSUB 800
-�@�E3_6_BLUE2TH.txt�@�@�@�@�@�s�ԍ�10 UART1:GOSUB 800
-�@�E3_7_SENSOR_XBEE.txt�@�@�@�s�ԍ�10 UART1:BPS 9600
-�@�E5_2_MOTOR_CAR.txt�@�@�@�@�s�ԍ� 2 UART 1:' Ver 1.1
-�@�E5_3_CATERPILLAR.txt�@�@�@�s�ԍ� 2 UART 1:' Ver 1.1
-�@�E5_4_MOTOR_FIL.txt�@�@�@�@�s�ԍ� 2 UART 1:' Ver 1.1
-�@�E5_5_MOTOR_CTRL.txt�@�@�@ �s�ԍ� 2 UART 1:' Ver 1.1
+　・3_3_SENSOR_TX.txt　　　　行番号 3 UART 1:' Ver 1.1
+　・3_4_BLUE2CN.txt　　　　　行番号10 UART1:GOSUB 800
+　・3_5_BLUE2INIT.txt　　　　行番号10 UART1:GOSUB 800
+　・3_6_BLUE2TH.txt　　　　　行番号10 UART1:GOSUB 800
+　・3_7_SENSOR_XBEE.txt　　　行番号10 UART1:BPS 9600
+　・5_2_MOTOR_CAR.txt　　　　行番号 2 UART 1:' Ver 1.1
+　・5_3_CATERPILLAR.txt　　　行番号 2 UART 1:' Ver 1.1
+　・5_4_MOTOR_FIL.txt　　　　行番号 2 UART 1:' Ver 1.1
+　・5_5_MOTOR_CTRL.txt　　　 行番号 2 UART 1:' Ver 1.1
 
-�@UART���߂̓V���A���ʐM�̑��M���@�̐؊������s�����߂ł��B
-�@IchigoJam Ver 1.1�ł͐V���ɃJ�[�\������Ȃǂ̉�ʐ���R�[�h���V���A����
-�@�o�͂����悤�ɂȂ�܂����B
-�@UART 1�����s���邱�ƂŁA�]����IchigoJam Ver 1.0�Ɠ��l�̃V���A���o�͂�
-�@�߂����Ƃ��ł��܂��B
+　UART命令はシリアル通信の送信方法の切換えを行う命令です。
+　IchigoJam Ver 1.1では新たにカーソル操作などの画面制御コードがシリアルに
+　出力されるようになりました。
+　UART 1を実行することで、従来のIchigoJam Ver 1.0と同様のシリアル出力に
+　戻すことができます。
 
-�T�|�[�g�y�[�W�ɂ���
+サポートページについて
 
-�@�E�{�������ŕ�����Ȃ��_�ɂ��͉��L�̃y�[�W���Q�Ƃ�������
-�@�@http://www.geocities.jp/bokunimowakaru/q/15/
+　・本書だけで分からない点についは下記のページを参照ください
+　　http://www.geocities.jp/bokunimowakaru/cq/15/
 
-�ŐV�Ń\�t�g�E�F�A�ɂ���
+最新版ソフトウェアについて
 
-�@�E�ŐV�ł̃\�t�g�E�F�A�͉��L����_�E�����[�h���邱�Ƃ��o���܂��B
-�@�@http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
+　・最新版のソフトウェアは下記からダウンロードすることが出来ます。
+　　http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
 
-�Q�l�����Ɋւ���
+参考資料に関して
 
-�@�@�{�\�t�g�E�F�A�̍쐬�ɂ�����A�������jig.jp��IchigoJam�֘A���y��
-�@�@IchigoJam-FAN(facebook)�̏����Q�Ƃ����Ă��������܂����B
+　　本ソフトウェアの作成にあたり、株式会社jig.jpのIchigoJam関連情報及び
+　　IchigoJam-FAN(facebook)の情報を参照させていただきました。
 
-�ȏ�
+以上
