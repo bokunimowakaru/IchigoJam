@@ -1,15 +1,15 @@
-本ソフトウェア IJKB はMinao Yamamotoの著作物です。
-下記MITライセンスに従って再配布いたします。
+�{�\�t�g�E�F�A IJKB ��Minao Yamamoto�̒��앨�ł��B
+���LMIT���C�Z���X�ɏ]���čĔz�z�������܂��B
 
-　　http://www.opensource.org/licenses/mit-license.php
+�@�@http://www.opensource.org/licenses/mit-license.php
 
-最新版は下記からダウンロードすることが出来ます。
+�ŐV�ł͉��L����_�E�����[�h���邱�Ƃ��o���܂��B
 
-　　https://github.com/tarosay/IJKB
+�@�@https://github.com/tarosay/IJKB
 
-本CD-ROMに収録した Ver 1.5.6は IchigoJamファームウェア1.1.1が
-リリースされる前のものです。
-またモニタ機能は開発中のものにつき、画面制御が出来ないなどの
-不具合があります。
+�{CD-ROM�Ɏ��^���� Ver 1.5.6�� IchigoJam�t�@�[���E�F�A1.1.1��
+�����[�X�����O�̂��̂ł��B
+�܂����j�^�@�\�͊J�����̂��̂ɂ��A��ʐ��䂪�o���Ȃ��Ȃǂ�
+�s�������܂��B
 
-国野 亘
+���� �j

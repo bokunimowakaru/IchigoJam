@@ -11,24 +11,40 @@
 　　http://creativecommons.org/licenses/by/4.0/deed.ja
 
 
-動作確認バージョンについて
+フォルダについて
 
-　・本ソフトウェアはIchigoJam BASIC Version 1.0.1で動作確認しています。
-　・Version 1.1以降への対応についてはサポートページなどをご覧ください。
+　・PROGRAM1_0
+　　本書の内容と同じプログラムを収録したフォルダです。
+　　IchigoJam BASIC Version 1.0.1で動作確認済です。
+
+　・PROGRAM1_1
+　　IchigoJam BASIC Version 1.1.1で動作確認済です。
+
+　・TOOLS
+　　本書で使用するソフトウェアに関する情報を収録したフォルダです。
+
 
 サポートページについて
 
 　・本書だけで分からない点についは下記のページを参照ください
 　　http://www.geocities.jp/bokunimowakaru/q/15/
 
+
 最新版ソフトウェアについて
 
 　・最新版のソフトウェアは下記からダウンロードすることが出来ます。
 　　http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
 
+
 参考資料に関して
 
-　　本ソフトウェアの作成にあたり、株式会社jig.jpのIchigoJam関連情報及び
-　　IchigoJam-FAN(facebook)の情報を参照させていただきました。
+　　本ソフトウェアの作成にあたり、株式会社jig.jpのIchigoJam関連情報及び 
+　　IchigoJam-FAN(facebook)の情報を参考にしました。
+
+　　　　IchigoJam関連情報
+　　　　http://ichigojam.net/
+
+　　　　IchigoJam-FAN(facebook)
+　　　　https://www.facebook.com/groups/ichigojam/
 
 以上

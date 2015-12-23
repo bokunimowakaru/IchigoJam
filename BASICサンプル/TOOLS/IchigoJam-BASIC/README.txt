@@ -1,25 +1,25 @@
-IchigoJam BASICファームウェアを下記からダウンロードしてください。
+IchigoJam BASIC�t�@�[���E�F�A�����L����_�E�����[�h���Ă��������B
 
-・「株式会社jig.jp」によるファームウェアの配布
-　　http://ichigojam.net/bin/ichigojam-1.0.1.zip
+�E�u�������jig.jp�v�ɂ��t�@�[���E�F�A�̔z�z
+�@�@http://ichigojam.net/bin/ichigojam-1.0.1.zip
 
-もしくは、下記からファームウェア書き込み済みのマイコンが販売されている
-ので、ご購入していただくことも出来ます。
+�������́A���L����t�@�[���E�F�A�������ݍς݂̃}�C�R�����̔�����Ă���
+�̂ŁA���w�����Ă����������Ƃ��o���܂��B
 
-・「ショップのふうせん」による
-　　ファームウェア書き込み済みマイコンの販売
-　　http://shopballoons.shop-star.jp/
+�E�u�V���b�v�̂ӂ�����v�ɂ��
+�@�@�t�@�[���E�F�A�������ݍς݃}�C�R���̔̔�
+�@�@http://shopballoons.shop-star.jp/
 
-IchigoJam BASICファームウェアは「株式会社jig.jp」の著作物です。jig.jpに
-よる「IchigoJam ロイヤリティフリープログラム利用規約」に同意することで
-マイコンに書込んで使用することが出来るようになります。
-ただし、当該ファームウェアを書き込んだマイコンやマイコンを含む製作物を
-譲渡したり販売する場合は、jig.jp社から承諾を得る必要があります。
+IchigoJam BASIC�t�@�[���E�F�A�́u�������jig.jp�v�̒��앨�ł��Bjig.jp��
+���uIchigoJam ���C�����e�B�t���[�v���O�������p�K��v�ɓ��ӂ��邱�Ƃ�
+�}�C�R���ɏ�����Ŏg�p���邱�Ƃ��o����悤�ɂȂ�܂��B
+�������A���Y�t�@�[���E�F�A���������񂾃}�C�R����}�C�R�����܂ސ��앨��
+���n������̔�����ꍇ�́Ajig.jp�Ђ��珳���𓾂�K�v������܂��B
 
-なお、本ドキュメントは「株式会社jig.jp」や「ショップのふうせん」による
-作成物ではありません。
-規約やライセンス内容について解釈の相違などがあったとしても当方は一切の
-責任を負いません。規約は変更される場合もあるので、最新の規約にしたがっ
-てください。
+�Ȃ��A�{�h�L�������g�́u�������jig.jp�v��u�V���b�v�̂ӂ�����v�ɂ��
+�쐬���ł͂���܂���B
+�K��⃉�C�Z���X���e�ɂ��ĉ��߂̑���Ȃǂ��������Ƃ��Ă������͈�؂�
+�ӔC�𕉂��܂���B�K��͕ύX�����ꍇ������̂ŁA�ŐV�̋K��ɂ�������
+�Ă��������B
 
-国野 亘
+���� �j
