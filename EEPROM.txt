@@ -54,7 +54,7 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         3   SCL
         4   SDA
         --------------------------------------------------------
-        ・オリジナルプリント基板[PersonalComputer]で採用
+        ・オリジナルプリント基板[PersonalComputer]で利用可(CN6)
         ・aitendo EEPROMモジュールキット [K-24C02] 
 
     2mmピッチ Grove I2Cインタフェース準拠仕様
