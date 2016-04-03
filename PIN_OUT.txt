@@ -11,7 +11,7 @@ pin name    役割                               |pin name    役割
  1  VIDEO1  ビデオ同期信号出力                 |28  KBD1    キーボードCLK
  2  VIDEO2  ビデオ映像信号出力                 |27  EX1     I2C_SCL用 EEPROMや液晶などに接続
  3  IN1     デジタル入力(IN1)：内部プルアップ  |26  KBD2    キーボードDATA
- 4  IN2     デジタル・アナログ入力(IN2・ANA2)  |25  SOUND   サウンド出力用
+ 4  IN2     デジタル・アナログ入力(IN2・ANA2)  |25  SOUND   サウンド出力用・自動起動用
  5  IN3     I2C_SDA用 EEPROMや液晶などに接続   |24  ISP     ファームウェア書込み用
  6  IN4     デジタル入力(IN4)：内部プルアップ  |23  RESET   リセット入力
  7  VCC     アナログ電源入力 3.3V              |22  GND     メインGND入力
@@ -56,7 +56,7 @@ pin name    役割
 28  KBD1    キーボードCLK
 27  EX1     I2C_SCL用
 26  KBD2    キーボードDATA
-25  SOUND   サウンド出力用
+25  SOUND   サウンド出力用・プルダウンで自動起動（Ver 1.2以降）
 24  ISP     ファームウェア書込み用、内部プルアップ
 23  RESET   リセット入力、内部プルアップ
 22  GND     メインGND入力
