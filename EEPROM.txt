@@ -12,6 +12,7 @@ IchigoJamの拡張IOにI2C接続EEPROMを接続すると、IchigoJamで作成し
 「FILES 0」で保存した各プログラムの1行目を一覧できる。
 なおファイル番号0～3でIchigoJamマイコン内に保存することも出来る。
 
+
 IchigoJam用として推奨されている EEPROM IC の情報
 ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
     対応EEPROM：1MbitI2CシリアルEEPROM 24FC1025-I/P
@@ -36,6 +37,7 @@ IchigoJam用として推奨されている EEPROM IC の情報
     ------------------------------------------------------------
        　　      本情報は下記情報(CC BYライセンス)を基にしました。
                                         http://fukuno.jig.jp/915
+
 
 EEPROMカセット情報（正確にはEEPROMモジュール）
 ￣￣￣￣￣￣￣￣￣
@@ -102,7 +104,7 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         --------------------------------------------------------
         ・EEPROMキット [K-Jam.rom] 
         ・CQ出版プリント基板[PersonalComputer]で利用可能
-		　(CN3、CN4を利用。シールドによっては併用できない)
+        　(CN3、CN4を利用。シールドによっては併用できない)
 
     USBプラグ形状仕様(USBではありません)
         --------------------------------------------------------
@@ -131,7 +133,7 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         --------------------------------------------------------
         http://www.amazon.co.jp/dp/B0119GKT6S
 
-    その他の仕様
+    その他の仕様(センサなどで使用)
         --------------------------------------------------------
         1   VCC
         2   SDA
@@ -153,6 +155,7 @@ EEPROMカセットとは。。。
     IchigoJam 用 micro EEPROMカセット
     ～ICソケットにICソケットを～
     http://blogs.yahoo.co.jp/bokunimowakaru/55144395.html
+
 
 動作確認済み情報
 ￣￣￣￣￣￣￣￣
@@ -191,22 +194,29 @@ Ver 1.1.xからはIN4端子を出力にすることが出来るので、重要�
 なお本ライトプロテクトに関する内容はベータ版で確認した情報です。
 正式版で対応されるかどうかは分かりません。
 
+
 bit -> byte変換
 ￣￣￣￣￣￣￣￣
 EEPROMの容量はBit（ビット）やKBit（ケー・ビット）で表されます。
 8bitで1byte（バイト）です
 
         bit     byte
-        8       1
-        16	2
-        32	4
-        64	8
-        128	16
-        256	32
-        512	64
-        1024	128
+          8       1
+         16       2
+         32       4
+         64       8
+        128      16
+        256      32
+        512      64
+       1024     128
 
 また、1K=1024です。つまり1Kbitとは1024bitで128byteを示します。
+「k」の「キロ」と区別する場合の「K」の読み方は「ケー」です。
+
+
+CQ出版オリジナルプリント基板の販売
+￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+- http://shop.cqpub.co.jp/hanbai/books/I/I000176.htm
 
 ----------------------------------------------------------------
 ライセンス・著作権表示
@@ -223,10 +233,10 @@ EEPROMの容量はBit（ビット）やKBit（ケー・ビット）で表され�
 - http://fukuno.jig.jp/1387 (新IchigoJam 2016/05)
 
 - http://ichigojam.net/IchigoJam.html
-	CC BY http://ichigojam.net/
+  CC BY http://ichigojam.net/
 
 - Facebook IchigoJam-FANグループ
-	https://www.facebook.com/groups/ichigojam/
+  https://www.facebook.com/groups/ichigojam/
 
 - http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/
 
