@@ -44,18 +44,17 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
     カートリッジのように抜き差しして他のIchigoJamとのプログラムの
     やりとりが可能となる。
     受け側が準備されることを前提にEEPROMカセットと呼ぶ。
-    また、ボク（国野亘）のオリジナルプリント基板のEEPROMカセット
-    対応状況も合わせて記す。
+    また、ボク（国野亘）のCQ出版オリジナルプリント基板のEEPROM
+    カセット対応状況も合わせて記す。
 
-    EEPROM IC ピンアウト準拠仕様
+    新IchigoJam CN5 I2C拡張ピンアウト仕様（2016/5/12現在）
         --------------------------------------------------------
-        1   VCC
-        2   GND
+        1   GND
+        2   3.3V (VCC)
         3   SCL
         4   SDA
+        5   5V
         --------------------------------------------------------
-        ・オリジナルプリント基板[PersonalComputer]で利用可(CN6)
-        ・aitendo EEPROMモジュールキット [K-24C02] 
 
     2mmピッチ Grove I2Cインタフェース準拠仕様
         --------------------------------------------------------
@@ -64,27 +63,37 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         3   SDA
         4   SCL
         --------------------------------------------------------
-        ・オリジナルプリント基板[I2CIF]で採用
-	・オリジナルプリント基板[PersonalComputer]で対応可能
-	　(CN10利用、IchigoJam BASIC Ver 1.1、OUT9,0、OUT11,1)
-	・オリジナルプリント基板[MicroComputer]で対応可能
-	　(CN10利用、IchigoJam BASIC Ver 1.1、OUT9,0、OUT11,1)
+        ・CQ出版プリント基板[I2CIF]で採用(CN55)
+        ・CQ出版プリント基板[PersonalComputer]で対応可能
+          (CN10利用、IchigoJam BASIC Ver 1.1、OUT9,0、OUT11,1)
+        ・CQ出版プリント基板[MicroComputer]で対応可能
+          (CN10利用、IchigoJam BASIC Ver 1.1、OUT9,0、OUT11,1)
 
-    I2Cピンアウト・Arduino仕様
+    EEPROM IC 互換ピンアウト準拠仕様
+        --------------------------------------------------------
+        1   VCC
+        2   GND
+        3   SCL
+        4   SDA
+        --------------------------------------------------------
+        ・CQ出版プリント基板[PersonalComputer]で利用可(CN6)
+        ・aitendo EEPROMモジュールキット [K-24C02] 
+
+    I2Cピンアウト・主にArduino仕様
         --------------------------------------------------------
         1   VCC
         2   GND
         3   SDA
         4   SCL
         --------------------------------------------------------
-        ・オリジナルプリント基板[I2CIF]で採用
-        ・オリジナルプリント基板[PersonalComputer]で利用可能
+        ・CQ出版プリント基板[I2CIF]で採用(CN54)
+        ・CQ出版プリント基板[PersonalComputer]で利用可能
           (CN10を利用、R10=0Ω、IN2とIN4使用不可、動作補償不可)
-        ・オリジナルプリント基板[MicroComputer]で利用可能
+        ・CQ出版プリント基板[MicroComputer]で利用可能
           (CN10を利用、R10=0Ω、IN2とIN4使用不可、動作補償不可)
         ・aitendo EEPROMモジュール（I2C） [I2C-24LC256-M] 
 
-    IchigoJam拡張IO互換仕様 (IchigoJamの拡張IOに接続可能)
+    IchigoJam拡張IO互換仕様 (CN3/CN4に接続可能)
         --------------------------------------------------------
         1   GND
         2   VCC
@@ -92,7 +101,7 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         4   SDA
         --------------------------------------------------------
         ・EEPROMキット [K-Jam.rom] 
-        ・オリジナルプリント基板[PersonalComputer]で利用可能
+        ・CQ出版プリント基板[PersonalComputer]で利用可能
 		　(CN3、CN4を利用。シールドによっては併用できない)
 
     USBプラグ形状仕様(USBではありません)
@@ -103,6 +112,15 @@ EEPROMカセット情報（正確にはEEPROMモジュール）
         1   VBUS(+5V)
         --------------------------------------------------------
         ・USBプラグ型ROMキット [K-UROM] 
+
+    クガデン仕様(独自)
+        --------------------------------------------------------
+        1   GND
+        2   VCC
+        3   WP
+        4   SCL
+        5   SDA
+        --------------------------------------------------------
 
     海外製品の一例
         --------------------------------------------------------
@@ -132,7 +150,9 @@ micro EEPROM カセット
 EEPROMカセットとは。。。
 下記のブログで確認してください。
 
-	http://blogs.yahoo.co.jp/bokunimowakaru/55144395.html
+    IchigoJam 用 micro EEPROMカセット
+    ～ICソケットにICソケットを～
+    http://blogs.yahoo.co.jp/bokunimowakaru/55144395.html
 
 動作確認済み情報
 ￣￣￣￣￣￣￣￣
@@ -193,12 +213,14 @@ EEPROMの容量はBit（ビット）やKBit（ケー・ビット）で表され�
 
 本資料を複製・改変・再配布する場合は著作権表示が必要です。
 
-                           CC BY (C) 2015 国野亘 (Wataru KUNINO)
+                      CC BY (C) 2015-2016 国野亘 (Wataru KUNINO)
                            www.geocities.jp/bokunimowakaru/q/15/
 ----------------------------------------------------------------
 参考文献
 
 作成にあたり以下の情報を参照しました。
+
+- http://fukuno.jig.jp/1387 (新IchigoJam 2016/05)
 
 - http://ichigojam.net/IchigoJam.html
 	CC BY http://ichigojam.net/
