@@ -1,7 +1,7 @@
 このプログラムはクリエイティブコモンズライセンス・表示(CC BY)にしたがって、
 複製・改変・再配布することが可能です。
 
-　　　　　　　　　　　　　　　　CC BY Copyright 2015 Wataru KUNINO
+　　　　　　　　　　　　　　　　CC BY Copyright 2015-2016 Wataru KUNINO
 　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/
 
 　・著作権表示を残してください。(合理的な方法でかまいません。)
@@ -14,12 +14,11 @@
 フォルダについて
 
 　・PROGRAM1_0
-　　本書の内容と同じプログラムを収録したフォルダです。
 　　IchigoJam BASIC Version 1.0.1で動作確認済です。
 
 　・PROGRAM1_1
-　　IchigoJam BASIC Version 1.1.1用です。（暫定版）
-　　新バージョンに対応するために本書のプログラムの一部を修正しました。
+　　本書の内容と同じプログラムを収録したフォルダです。
+　　IchigoJam BASIC Version 1.1.1～1.2.0用です。
 
 　・TOOLS
 　　本書で使用するソフトウェアに関する情報を収録したフォルダです。
