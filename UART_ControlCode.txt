@@ -58,7 +58,7 @@ UARTモード設定(2)シリアル入力制御・ESC無効モード
     UART 0,0  IchigoJamからのUART送信と受信の両方をOFF
     UART 1,1  UARTの送受信を有効に。ESCも有効。（通常）
     UART 1,2  UARTの送受信を有効に。ESCは無効。
-    UART 0,4  CR to LR Converter
+    UART 0,4  UARTからのCR入力をLRへ変換する(Ver 1.3候補機能)
 
     UARTの第二パラメータを0にするとシリアル入力(受信)がOFFになる
     UARTの第二パラメータを2にするとESC無効モードとなる。
