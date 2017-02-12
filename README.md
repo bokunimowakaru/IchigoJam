@@ -6,7 +6,7 @@ IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムお�
 
 本資料を複製・改変・再配布する場合は著作権表示が必要です。
 
-                     CC BY (C) 2015-2016 国野亘 (Wataru KUNINO)
+                     CC BY (C) 2015-2017 国野亘 (Wataru KUNINO)
                            www.geocities.jp/bokunimowakaru/q/15/
 ----------------------------------------------------------------
 参考文献
