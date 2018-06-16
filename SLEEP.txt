@@ -1,0 +1,76 @@
+IchigoJam 省電力動作方法一覧
+
+【概要】
+	IchigoJamを低消費電力で動かす方法には、以下の3つがあります。
+	本テキストでは、それぞれの動作について説明します。
+
+	[0] 通常動作(参考)：普段の動作状態(通常起動時・スリープ解除後)
+	[1] 低クロック動作：クロックを下げて動作させる(VIDEOコマンド)
+	[2] Cyclic Sleep動作：WAITコマンドを使ってスリープに移行し、一定期間後に起動する処理を繰り返す
+	[3] Single Shot起動：SLEEPコマンドでスリープモードに移行し、必要な時にBTN信号で起動する
+
+【詳細】
+
+ [0] 通常動作（参考）
+
+	【消費電流 IchigoJam T・IchigoJam BASIC 1.2.1・実測】
+		32 mA(160mW)	キーボード・ビデオ接続時
+		30 mA(151mW)	キーボード接続時（ビデオ無し）
+		17 mA (87mW)	ビデオ端子接続時（キーボード無し）
+		16 mA (78mW)	周辺機器未接続時（キーボード無し・ビデオ無し）
+
+ [1] 低クロック動作駆動
+	・ビデオ出力を停止し、マイコンの動作クロックを下げて省電力化
+
+	【コマンド例】
+		VIDEO 0,8	(設定)
+		VIDEO 1	(解除)
+
+	【消費電流 IchigoJam T・IchigoJam BASIC 1.2.1・実測】
+		15.52 mA	(起動後)
+		12.08 mA	(VIDEO 0)
+		 7.88 mA	(VIDEO 0,2)
+		 5.73 mA	(VIDEO 0,4)
+		 4.64 mA	(VIDEO 0,8)
+		 4.08 mA	(VIDEO 0,16)
+		 3.80 mA	(VIDEO 0,32)
+		16.48 mA	(VIDEO 1・解除後)
+
+ [2] Cyclic Sleep 駆動
+	・指定時間（1/60秒単位）スリープしてから、自動復帰
+
+	【コマンド例】
+		WAIT 300,0	(5秒間、スリープ)
+
+	【消費電流 IchigoJam T・IchigoJam BASIC 1.2.1・実測】
+		15.51 mA	(初期状態)
+		 0.31 mA	(WAIT 300,0 スリープ中)
+		16.50 mA	(解除後)
+
+		注意：Cyclic Sleep 解除後は、消費電流が1mA増大する
+
+	【サンプル】
+		10 WAIT 60:IF INKEY() GOTO 10
+		20 LED0
+		30 WAIT 60,0
+		40 LED1
+		50 IF BTN() GOTO 20
+
+ [3] Single Shot 起動
+	・BTN端子がHレベルでスリープへ遷移。
+	・BTN端子がH→Lレベル遷移時に復帰。
+
+	【コマンド例】
+		SLEEP
+
+	【消費電流 IchigoJam T・IchigoJam BASIC 1.2.1・実測】
+		15.51 mA	(初期状態)
+		 0.020 mA	(スリープ中)
+		15.51 mA	(スリープ解除後)
+
+【参考文献】
+	IchigoJamで省エネIoT、動作周波数別消費電流とスリープモード
+	http://fukuno.jig.jp/1280
+
+	人感センサ反応時にIchigoJamがRaspberry Piを起動し、携帯電話網へ接続する 
+	https://blogs.yahoo.co.jp/bokunimowakaru/55549161.html
