@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!-- (c)taisukef CC BY  http://fukuno.jig.jp/ -->
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Message IoT - sakura.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<script src="fukuno.js"></script>
+<script src="sakura-setting-2.js"></script>
+<script>
+
+var ws = null;
+var wst;
+
+window.onload = function() {
+	var mes = function(data) {
+		var s = create("div");
+		s.textContent = data;
+		if (output.children.length > 0) {
+			output.insertBefore(s, output.children[0]);
+		} else {
+			output.appendChild(s);
+		}
+	};
+	
+	wst = setInterval(function() {
+		if (ws == null || ws.readyState != 1) {
+			if (ws != null)
+				ws.close();
+			ws = new WebSocket("wss://api.sakura.io/ws/v1/" + SAKURA_TOKEN);
+			ws.onmessage = function(e) {
+				console.log(e.data);
+//				var txt = e.data;
+				var data = JSON.parse(e.data);
+				var type = data.type;
+				if (type == "keepalive")
+					return;
+				if (type == "channels") {
+//					dump(data);
+					var id = getModule(data.module);
+					var ch = data.payload.channels[0];
+					var val = ch.value;
+					if (ch.type == "b") {
+						var s = "";
+						for (var i = 0; i < val.length; i += 2) {
+							var n = parseInt(val.substring(i, i + 2), 16);
+							n = deconvertHalfCode(n);
+							var c = String.fromCharCode(n);
+							s += c;
+						}
+						val = s;
+					}
+					mes(id + " から \"" + val + "\" を受信！");
+					/*
+[Log] {
+	"module":"ubisgcvWk7JL",
+"type":"channels",
+"datetime":"2017-04-02T23:48:12.327230761Z",
+"payload":{
+	"channels":[
+		{"channel":1,"type":"L","value":123,"datetime":"2017-04-02T23:48:12.275232242Z"}]}} (index.html, line 32)
+					*/
+				}
+//				mes(e.data);
+			};
+			ws.onclose = function() {
+//				mes("close");
+				ws = null;
+			};
+			ws.onopen = function() {
+				mes("connected");
+			};
+			ws.onerror = function(event) {
+//				mes("error");
+				ws = null;
+			};
+	    }
+	}, 1000);
+	
+	var getModule = function(s) {
+		var id = "unknown";
+		for (var i = 0; i < SAKURA_MODULE.length; i++) {
+			if (SAKURA_MODULE[i].module == s) {
+				id = SAKURA_MODULE[i].id;
+				break;
+			}
+		}
+		return id;
+	};
+	var send = function(val) {
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'I', value: Number(val) } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(getModule(module.value) + " へ " + Number(val) + " を発信！");
+	};
+	var makeLong = function(s) {
+		s = toKatakana(s);
+		s = toHalf(s);
+		var val = 0;
+		for (var i = 0; i < Math.min(s.length, 6); i++) {
+			var c = s.charCodeAt(i);
+			c = convertHalfCode(c);
+			if (c >= 0x100)
+				c = 0xff;
+			val += c * Math.pow(2, 8 * i + 8);
+		}
+		return val;
+	};
+	var sendAsciiAsLong = function(s) {
+		var val = makeLong(s);
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'L', value: val } ] }
+		};
+		ws.send(JSON.stringify(obj));
+	};
+	var makeHexString = function(s) {
+		s = toKatakanaHalf(s);
+		var val = "";
+		for (var i = 0; i < Math.min(s.length, 8); i++) {
+			var n = s.charCodeAt(i);
+			if (isNaN(n))
+				n = 0;
+			n = convertHalfCode(n);
+			var c = n.toString(16);
+			if (c.length == 1)
+				val += "0";
+			val += c;
+		}
+		console.log(val);
+		return val;
+	};
+	var sendAscii = function(s) {
+//		sendAsciiAsLong(s);
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'b', value: makeHexString(s) } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(getModule(module.value) + " へ '" + toKatakanaHalf(s) + "' を発信！");
+	};
+	outputclear.onclick = function() {
+		output.innerHTML = "";
+	};
+	sendmesbtn.onclick = function() {
+		sendAscii(sendmes.value);
+	};
+	for (var i = 0; i < SAKURA_MODULE.length; i++) {
+		var s = SAKURA_MODULE[i];
+		var opt = create("option");
+		opt.textContent = s.id;
+		opt.value = s.module;
+		module.appendChild(opt);
+	}
+};
+
+// util
+var toKatakanaHalf = function(s) {
+	return toHalf(toKatakana(s));
+};
+var toKatakana = function(s) {
+	var katakana = [ "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "パ", "ビ", "ピ", "ブ", "プ", "ベ", "ペ", "ボ", "ポ", "ヴ", "ァ", "ア", "ィ", "イ", "ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ッ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ャ", "ヤ", "ュ", "ユ", "ョ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var hirakana = [ "が", "ぎ", "ぐ", "げ", "ご", "ざ", "じ", "ず", "ぜ", "ぞ", "だ", "ぢ", "づ", "で", "ど", "ば", "ぱ", "び", "ぴ", "ぶ", "ぷ", "べ", "ぺ", "ぼ", "ぽ", "ゔ", "ぁ", "あ", "ぃ", "い", "ぅ", "う", "ぇ", "え", "ぉ", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ", "そ", "た", "ち", "っ", "つ", "て", "と", "な", "に", "ぬ", "ね", "の", "は", "ひ", "ふ", "へ", "ほ", "ま", "み", "む", "め", "も", "ゃ", "や", "ゅ", "ゆ", "ょ", "よ", "ら", "り", "る", "れ", "ろ", "わ", "を", "ん", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var res = "";
+	for (var i = 0; i < s.length; i++) {
+		var c = s.substring(i, i + 1);
+		var flg = false;
+		for (var j = 0; j < hirakana.length; j++) {
+			if (c == hirakana[j]) {
+				res += katakana[j];
+				flg = true;
+				break;
+			}
+		}
+		if (!flg)
+			res += c;
+	}
+	return res;
+};
+var toHalf = function(s) {
+	var zen = [ "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "パ", "ビ", "ピ", "ブ", "プ", "ベ", "ペ", "ボ", "ポ", "ヴ", "ァ", "ア", "ィ", "イ", "ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ッ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ャ", "ヤ", "ュ", "ユ", "ョ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var han = [ "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾊﾟ", "ﾋﾞ", "ﾋﾟ", "ﾌﾞ", "ﾌﾟ", "ﾍﾞ", "ﾍﾟ", "ﾎﾞ", "ﾎﾟ", "ｳﾞ", "ｧ", "ｱ", "ｨ", "ｲ", "ｩ", "ｳ", "ｪ", "ｴ", "ｫ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ｯ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ｬ", "ﾔ", "ｭ", "ﾕ", "ｮ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｦ", "ﾝ", "｡", "｢", "｣", "､", "･", "ｰ", "ﾞ", "ﾟ" ];
+	var res = "";
+	for (var i = 0; i < s.length; i++) {
+		var c = s.substring(i, i + 1);
+		var flg = false;
+		for (var j = 0; j < zen.length; j++) {
+			if (c == zen[j]) {
+				res += han[j];
+				flg = true;
+				break;
+			}
+		}
+		if (!flg)
+			res += c;
+	}
+	return res;
+};
+var convertHalfCode = function(c) {
+	if (c >= 0xff61 && c <= 0xff9f) {
+		c -= 0xff00 - 0x40;
+	}
+	return c;
+};
+var deconvertHalfCode = function(c) {
+	if (c >= 0xb0 && c <= 0xdf) {
+		c += 0xff00 - 0x40;
+	}
+	return c;
+};
+
+</script>
+<style>
+body {
+	margin: 0px;
+	padding: 20px;
+	text-align: center;
+	font-family: sans-serif;
+}
+#main {
+	font-size: 30px;
+}
+#btns {
+	margin: 1em;
+}
+.btn {
+	padding: 2em;
+	margin: 1em;
+}
+#outputclear {
+	margin: 0;
+}
+#output {
+	display: inline-block;
+	text-align: left;
+	margin: 0.1em 0 1em 0;
+	width: 80%;
+	padding: 0.5em;
+	border: 1px solid black;
+}
+#credit {
+	font-size: 12px;
+	margin-top: 20px;
+}
+a {
+	color: gray !important;
+}
+</style>
+</head>
+<body>
+
+<h2>Message IoT - sakura.io</h2>
+
+<div>
+	<select id=module></select>
+	<input type=text placeholder="8chars text" id=sendmes><button id=sendmesbtn>send</button><br>
+	<br>
+	<button id=outputclear>clear output</button><br>
+	<div id=output></div>
+</div>
+
+<div id="credit">
+APP: <a href="http://fukuno.jig.jp/1695">CC BY fukuno.jig.jp</a><br>
+</div>
+</body>
+</html>
