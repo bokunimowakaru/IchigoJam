@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <meta name="format-detection" content="telephone=no">
 <script src="fukuno.js"></script>
-<script src="sakura-setting-2.js"></script>
+<!-- script src="sakura-setting-2.js" --><!-- /script -->
 <script>
 
 var ws = null;
@@ -25,67 +25,72 @@ window.onload = function() {
 	};
 	
 	wst = setInterval(function() {
-		if (ws == null || ws.readyState != 1) {
-			if (ws != null)
-				ws.close();
-			ws = new WebSocket("wss://api.sakura.io/ws/v1/" + SAKURA_TOKEN);
-			ws.onmessage = function(e) {
-				console.log(e.data);
-//				var txt = e.data;
-				var data = JSON.parse(e.data);
-				var type = data.type;
-				if (type == "keepalive")
-					return;
-				if (type == "channels") {
-//					dump(data);
-					var id = getModule(data.module);
-					var ch = data.payload.channels[0];
-					var val = ch.value;
-					if (ch.type == "b") {
-						var s = "";
-						for (var i = 0; i < val.length; i += 2) {
-							var n = parseInt(val.substring(i, i + 2), 16);
-							n = deconvertHalfCode(n);
-							var c = String.fromCharCode(n);
-							s += c;
+		if (token.value) {
+			if (ws == null || ws.readyState != 1) {
+				if (ws != null)
+					ws.close();
+				ws = new WebSocket("wss://api.sakura.io/ws/v1/" + token.value);
+				ws.onmessage = function(e) {
+					console.log(e.data);
+	//				var txt = e.data;
+					var data = JSON.parse(e.data);
+					var type = data.type;
+					if (type == "keepalive")
+						return;
+					if (type == "channels") {
+	//					dump(data);
+	//					var id = getModule(data.module);
+						var id = data.module;
+						var ch = data.payload.channels[0];
+						var val = ch.value;
+						if (ch.type == "b") {
+							var s = "";
+							for (var i = 0; i < val.length; i += 2) {
+								var n = parseInt(val.substring(i, i + 2), 16);
+								n = deconvertHalfCode(n);
+								var c = String.fromCharCode(n);
+								s += c;
+							}
+							val = s;
 						}
-						val = s;
+						mes(id + " から \"" + val + "\" を受信");
+						/*
+	[Log] {
+		"module":"ubisgcvWk7JL",
+	"type":"channels",
+	"datetime":"2017-04-02T23:48:12.327230761Z",
+	"payload":{
+		"channels":[
+			{"channel":1,"type":"L","value":123,"datetime":"2017-04-02T23:48:12.275232242Z"}]}} (index.html, line 32)
+						*/
 					}
-					mes(id + " から \"" + val + "\" を受信！");
-					/*
-[Log] {
-	"module":"ubisgcvWk7JL",
-"type":"channels",
-"datetime":"2017-04-02T23:48:12.327230761Z",
-"payload":{
-	"channels":[
-		{"channel":1,"type":"L","value":123,"datetime":"2017-04-02T23:48:12.275232242Z"}]}} (index.html, line 32)
-					*/
-				}
-//				mes(e.data);
-			};
-			ws.onclose = function() {
-//				mes("close");
-				ws = null;
-			};
-			ws.onopen = function() {
-				mes("connected");
-			};
-			ws.onerror = function(event) {
-//				mes("error");
-				ws = null;
-			};
-	    }
-	}, 1000);
+	//				mes(e.data);
+				};
+				ws.onclose = function() {
+	//				mes("close");
+					ws = null;
+				};
+				ws.onopen = function() {
+					mes("connected");
+				};
+				ws.onerror = function(event) {
+	//				mes("error");
+					ws = null;
+				};
+		    }
+		}
+	}, 5000);
 	
 	var getModule = function(s) {
 		var id = "unknown";
+/*
 		for (var i = 0; i < SAKURA_MODULE.length; i++) {
 			if (SAKURA_MODULE[i].module == s) {
 				id = SAKURA_MODULE[i].id;
 				break;
 			}
 		}
+*/
 		return id;
 	};
 	var send = function(val) {
@@ -95,7 +100,8 @@ window.onload = function() {
 			payload: { channels: [ { channel: 0, type: 'I', value: Number(val) } ] }
 		};
 		ws.send(JSON.stringify(obj));
-		mes(getModule(module.value) + " へ " + Number(val) + " を発信！");
+//		mes(getModule(module.value) + " へ " + Number(val) + " を発信！");
+		mes(module.value + " へ " + Number(val) + " を発信！");
 	};
 	var makeLong = function(s) {
 		s = toKatakana(s);
@@ -143,7 +149,8 @@ window.onload = function() {
 			payload: { channels: [ { channel: 0, type: 'b', value: makeHexString(s) } ] }
 		};
 		ws.send(JSON.stringify(obj));
-		mes(getModule(module.value) + " へ '" + toKatakanaHalf(s) + "' を発信！");
+//		mes(getModule(module.value) + " へ '" + toKatakanaHalf(s) + "' を発信！");
+		mes(module.value + ' へ 文字列"' + toKatakanaHalf(s) + '" を送信"');
 	};
 	outputclear.onclick = function() {
 		output.innerHTML = "";
@@ -151,6 +158,19 @@ window.onload = function() {
 	sendmesbtn.onclick = function() {
 		sendAscii(sendmes.value);
 	};
+	sendvalbtn.onclick = function() {
+		var val = parseInt(sendval.value);
+		if( !val ) val=0;
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'I', value: val } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(module.value + " へ 数値" + val + " を送信");
+
+	};
+/*
 	for (var i = 0; i < SAKURA_MODULE.length; i++) {
 		var s = SAKURA_MODULE[i];
 		var opt = create("option");
@@ -158,6 +178,7 @@ window.onload = function() {
 		opt.value = s.module;
 		module.appendChild(opt);
 	}
+*/
 };
 
 // util
@@ -255,18 +276,32 @@ a {
 </head>
 <body>
 
-<h2>Message IoT - sakura.io</h2>
+<h2>WebSocket 確認ツール Message IoT - sakura.io</h2>
 
-<div>
-	<select id=module></select>
-	<input type=text placeholder="8chars text" id=sendmes><button id=sendmesbtn>send</button><br>
-	<br>
-	<button id=outputclear>clear output</button><br>
-	<div id=output></div>
-</div>
+<div align="center"><table border="0" cellspacing="15">
+	<tr>
+		<td>WebSocket Token</td>
+		<td><input type="text" size="40" placeholder="00000000-0000-0000-0000-000000000000" id="token"></td>
+	</tr>
+	<tr>
+		<td>Module ID</td>
+		<td><input type="text" size="14" placeholder="u00000000000" id=module></td>
+	</tr>
+	<tr>
+		<td>Message</td>
+		<td><input type="text" size="10" placeholder="8chars text" id=sendmes>　<button id=sendmesbtn>送信</button></td>
+	</tr>
+	<tr>
+		<td>Value</td>
+		<td><input type="text" size="5" placeholder="value" id=sendval>　<button id=sendvalbtn>送信</button></td>
+	</tr>
+	<tr>
+		<td colspan=2>Log<br><br><div align="center"><div id=output></div><br><button id=outputclear>clear</button></div></td>
+	</tr>
+</table></div>
 
 <div id="credit">
-APP: <a href="http://fukuno.jig.jp/1695">CC BY fukuno.jig.jp</a><br>
+本アプリは<a href="http://fukuno.jig.jp/1695">http://fukuno.jig.jp/1695</a> CC BY fukuno.jig.jpを基にしています。<br>一部を国野亘が改変（機能を省略）しました。<br><br>by Wataru KUNINO
 </div>
 </body>
 </html>
