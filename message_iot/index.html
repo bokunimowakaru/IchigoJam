@@ -143,14 +143,16 @@ window.onload = function() {
 	};
 	var sendAscii = function(s) {
 //		sendAsciiAsLong(s);
+		var ch = parseInt(channel.value);
+		if( !ch ) ch=0;
 		const obj = {
 			module: module.value,
 			type: 'channels',
-			payload: { channels: [ { channel: 0, type: 'b', value: makeHexString(s) } ] }
+			payload: { channels: [ { channel: ch, type: 'b', value: makeHexString(s) } ] }
 		};
 		ws.send(JSON.stringify(obj));
 //		mes(getModule(module.value) + " へ '" + toKatakanaHalf(s) + "' を発信！");
-		mes(module.value + ' へ 文字列"' + toKatakanaHalf(s) + '" を送信"');
+		mes(module.value + ' の ' + ch + ' ch へ 文字列"' + toKatakanaHalf(s) + '" を送信"');
 	};
 	outputclear.onclick = function() {
 		output.innerHTML = "";
@@ -161,13 +163,15 @@ window.onload = function() {
 	sendvalbtn.onclick = function() {
 		var val = parseInt(sendval.value);
 		if( !val ) val=0;
+		var ch = parseInt(channel.value);
+		if( !ch ) ch=0;
 		const obj = {
 			module: module.value,
 			type: 'channels',
-			payload: { channels: [ { channel: 0, type: 'I', value: val } ] }
+			payload: { channels: [ { channel: ch, type: 'I', value: val } ] }
 		};
 		ws.send(JSON.stringify(obj));
-		mes(module.value + " へ 数値" + val + " を送信");
+		mes(module.value + ' の ' + ch + ' ch へ 数値"' + val + " を送信");
 
 	};
 /*
@@ -261,7 +265,7 @@ body {
 	display: inline-block;
 	text-align: left;
 	margin: 0.1em 0 1em 0;
-	width: 80%;
+	width: 100%;
 	padding: 0.5em;
 	border: 1px solid black;
 }
@@ -288,6 +292,10 @@ a {
 		<td><input type="text" size="14" placeholder="u00000000000" id=module></td>
 	</tr>
 	<tr>
+		<td>Channel</td>
+		<td><input type="text" size="4" value="1" id=channel></td>
+	</tr>
+	<tr>
 		<td>Message</td>
 		<td><input type="text" size="10" placeholder="8chars text" id=sendmes>　<button id=sendmesbtn>送信</button></td>
 	</tr>
@@ -301,7 +309,8 @@ a {
 </table></div>
 
 <div id="credit">
-本アプリは<a href="http://fukuno.jig.jp/1695">http://fukuno.jig.jp/1695</a> CC BY fukuno.jig.jpを基にしています。<br>一部を国野亘が改変（機能を省略）しました。<br><br>by Wataru KUNINO
+本アプリは<a href="http://fukuno.jig.jp/2121">http://fukuno.jig.jp/2121</a> <a href="http://fukuno.jig.jp/1695">1695</a> CC BY fukuno.jig.jpを基にしています。<br>
+国野亘が一部を改変（TokenとID入力機能の追加とデバイス選択を無効化）しました。<br><br>by Wataru KUNINO
 </div>
 </body>
 </html>
