@@ -1,0 +1,194 @@
+////////////////////////////////////////////////////////////////////////////////
+// SAKURA BTN to IFTTT
+// sakura.io から受信したBTN信号をIFTTTへ送信するサンプルです。
+//
+// ・sakura.ioノード内の「URL」の「xxxx」にsakura.ioのTokenを入力してください。
+// ・http requestノード内の「URL」の「xxxx」にIFTTT Maker WebhockのTokenを入力。
+//
+//                                              Copyright (c) 2018 Wataru KUNINO
+////////////////////////////////////////////////////////////////////////////////
+//
+// Node-RED用 JSON形式
+// コメント行は転送時に自動削除されます
+//
+[
+    {
+        "id": "33ffbc3b.98f9cc",
+        "type": "websocket in",
+        "z": "413e595d.a9443c",
+        "name": "sakura.io",
+        "server": "",
+        "client": "3b88588f.7880a8",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "6f830a0b.1adcfc"
+            ]
+        ]
+    },
+    {
+        "id": "aa9049c4.1ec1f8",
+        "type": "debug",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 310,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6f830a0b.1adcfc",
+        "type": "json",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "b2e5652a.ed40c"
+            ]
+        ]
+    },
+    {
+        "id": "b2e5652a.ed40c",
+        "type": "switch",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "channels",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "b0b8ca51.bed2d8",
+                "aa9049c4.1ec1f8"
+            ]
+        ]
+    },
+    {
+        "id": "ad34839d.6a45b8",
+        "type": "function",
+        "z": "413e595d.a9443c",
+        "name": "value1:channel",
+        "func": "return {\n    payload:{\n        \"value1\":msg.payload.payload.channels[0].channel\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 280,
+        "wires": [
+            [
+                "f5a20ba2.431a88",
+                "55680cf1.75c1fc"
+            ]
+        ]
+    },
+    {
+        "id": "f5a20ba2.431a88",
+        "type": "http request",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "url": "https://maker.ifttt.com/trigger/BTN/with/key/xxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "tls": "",
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "b86a5b0c.b1de88"
+            ]
+        ]
+    },
+    {
+        "id": "b0b8ca51.bed2d8",
+        "type": "switch",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "property": "payload.payload.channels[0].value",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "ad34839d.6a45b8"
+            ]
+        ]
+    },
+    {
+        "id": "b86a5b0c.b1de88",
+        "type": "debug",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 410,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "55680cf1.75c1fc",
+        "type": "debug",
+        "z": "413e595d.a9443c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 410,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3b88588f.7880a8",
+        "type": "websocket-client",
+        "z": "",
+        "path": "wss://api.sakura.io/ws/v1/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "tls": "5107f4d9.b8a45c",
+        "wholemsg": "false"
+    },
+    {
+        "id": "5107f4d9.b8a45c",
+        "type": "tls-config",
+        "z": "",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": true
+    }
+]

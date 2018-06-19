@@ -1,0 +1,134 @@
+////////////////////////////////////////////////////////////////////////////////
+// SAKURA ILM/ANA to Ambient
+// sakura.ioから受信した照度センサ/ANALOG入力値をAmbientへ送信するサンプルです。
+//
+// ・sakura.ioノード内の「URL」の「xxxx」にsakura.ioのTokenを入力してください。
+// ・Ambientノードをダブルクリックし、Channel Id とWrite Keyを入力してください。
+//
+//                                              Copyright (c) 2018 Wataru KUNINO
+////////////////////////////////////////////////////////////////////////////////
+//
+// Node-RED用 JSON形式
+// コメント行は転送時に自動削除されます
+//
+[
+    {
+        "id": "feb19d1.867e26",
+        "type": "websocket in",
+        "z": "afe73219.ba1cb",
+        "name": "sakura.io",
+        "server": "",
+        "client": "3b88588f.7880a8",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "1613aa0f.c646c6"
+            ]
+        ]
+    },
+    {
+        "id": "6183a9a1.535198",
+        "type": "debug",
+        "z": "afe73219.ba1cb",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 370,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "1613aa0f.c646c6",
+        "type": "json",
+        "z": "afe73219.ba1cb",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "f76b2336.db88f"
+            ]
+        ]
+    },
+    {
+        "id": "f76b2336.db88f",
+        "type": "switch",
+        "z": "afe73219.ba1cb",
+        "name": "",
+        "property": "payload.type",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "channels",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "91095e06.795f5"
+            ]
+        ]
+    },
+    {
+        "id": "91095e06.795f5",
+        "type": "function",
+        "z": "afe73219.ba1cb",
+        "name": "d1:value",
+        "func": "return {\n    payload:{\n        \"d1\":msg.payload.payload.channels[0].value\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 200,
+        "y": 220,
+        "wires": [
+            [
+                "6183a9a1.535198",
+                "d2968a97.c65378"
+            ]
+        ]
+    },
+    {
+        "id": "d2968a97.c65378",
+        "type": "Ambient",
+        "z": "afe73219.ba1cb",
+        "name": "",
+        "channelId": "",
+        "writeKey": "",
+        "x": 240,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3b88588f.7880a8",
+        "type": "websocket-client",
+        "z": "",
+        "path": "wss://api.sakura.io/ws/v1/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "tls": "5107f4d9.b8a45c",
+        "wholemsg": "false"
+    },
+    {
+        "id": "5107f4d9.b8a45c",
+        "type": "tls-config",
+        "z": "",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "verifyservercert": true
+    }
+]
