@@ -174,6 +174,25 @@ window.onload = function() {
 		mes(module.value + ' の ' + ch + ' ch へ 数値"' + val + " を送信");
 
 	};
+	savetoken.onclick = function() {
+        console.log('save token');
+        console.log(token.value);
+		localStorage.setItem('token', token.value);
+	};
+	loadtoken.onclick = function() {
+        console.log('load token');
+		token.value = localStorage.getItem('token');
+	};
+	savemodule.onclick = function() {
+        console.log('save module');
+        console.log(module.value);
+		localStorage.setItem('module', module.value);
+	};
+	loadmodule.onclick = function() {
+        console.log('load module');
+		module.value = localStorage.getItem('module');
+	};
+
 /*
 	for (var i = 0; i < SAKURA_MODULE.length; i++) {
 		var s = SAKURA_MODULE[i];
@@ -280,16 +299,15 @@ a {
 </head>
 <body>
 
-<h2>WebSocket 確認ツール Message IoT - sakura.io</h2>
-
+<h2>WebSocket 確認ツール Message IoT - sakura.io<br>(TokenとIDの保存機能つき)</h2>
 <div align="center"><table border="0" cellspacing="15">
 	<tr>
 		<td>WebSocket Token</td>
-		<td><input type="text" size="40" placeholder="00000000-0000-0000-0000-000000000000" id="token"></td>
+		<td><input type="text" size="40" placeholder="00000000-0000-0000-0000-000000000000" id="token">　<button id=savetoken>SAVE</button>　<button id=loadtoken>LOAD</button></td>
 	</tr>
 	<tr>
 		<td>Module ID</td>
-		<td><input type="text" size="14" placeholder="u00000000000" id=module></td>
+		<td><input type="text" size="14" placeholder="u00000000000" id=module>　<button id=savemodule>SAVE</button>　<button id=loadmodule>LOAD</button></td>
 	</tr>
 	<tr>
 		<td>Channel</td>
@@ -311,7 +329,7 @@ a {
 <div id="credit">
 本アプリは<a href="http://fukuno.jig.jp/2121">http://fukuno.jig.jp/2121</a> <a href="http://fukuno.jig.jp/1695">1695</a> CC BY fukuno.jig.jpを基にしています。<br>
 国野亘が一部を改変（TokenとID入力機能の追加とデバイス選択を無効化）しました。<br>
-TokenとIDを保存することのできる<a href="save">保存機能付 Message IoTも公開</a>しています。<br><br>by Wataru KUNINO
+ブラウザによっては保存機能が動作しない場合があります。その場合は<a href="index.html">通常版</a>を使用してください。<br><br>by Wataru KUNINO
 </div>
 </body>
 </html>
