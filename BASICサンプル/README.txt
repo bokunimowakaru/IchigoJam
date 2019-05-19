@@ -2,7 +2,7 @@
 複製・改変・再配布することが可能です。
 
 　　　　　　　　　　　　　　　　CC BY Copyright 2015-2016 Wataru KUNINO
-　　　　　　　　　　　　　　　　http://www.geocities.jp/bokunimowakaru/
+　　　　　　　　　　　　　　　　https://bokunimo.net/ichigojam/
 
 　・著作権表示を残してください。(合理的な方法でかまいません。)
 　・「IchigoJam」は株式会社 jig.jp の登録商標です。
@@ -27,13 +27,8 @@
 サポートページについて
 
 　・本書だけで分からない点についは下記のページを参照ください
-　　http://www.geocities.jp/bokunimowakaru/cq/15/
-
-
-最新版ソフトウェアについて
-
 　・最新版のソフトウェアは下記からダウンロードすることが出来ます。
-　　http://www.geocities.jp/bokunimowakaru/cq/download/ichigo_001.zip
+　　https://bokunimo.net/ichigojam/
 
 
 参考資料に関して
