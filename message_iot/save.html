@@ -101,7 +101,7 @@ window.onload = function() {
 		};
 		ws.send(JSON.stringify(obj));
 //		mes(getModule(module.value) + " へ " + Number(val) + " を発信！");
-		mes(module.value + " へ " + Number(val) + " を発信！");
+		mes(module.value + " へ " + Number(val) + " を送信！");
 	};
 	var makeLong = function(s) {
 		s = toKatakana(s);
@@ -152,7 +152,7 @@ window.onload = function() {
 		};
 		ws.send(JSON.stringify(obj));
 //		mes(getModule(module.value) + " へ '" + toKatakanaHalf(s) + "' を発信！");
-		mes(module.value + ' の ' + ch + ' ch へ 文字列"' + toKatakanaHalf(s) + '" を送信"');
+		mes(module.value + ' の ' + ch + ' ch へ 文字列\"' + toKatakanaHalf(s) + '\" を送信');
 	};
 	outputclear.onclick = function() {
 		output.innerHTML = "";
@@ -171,7 +171,7 @@ window.onload = function() {
 			payload: { channels: [ { channel: ch, type: 'I', value: val } ] }
 		};
 		ws.send(JSON.stringify(obj));
-		mes(module.value + ' の ' + ch + ' ch へ 数値"' + val + " を送信");
+		mes(module.value + ' の ' + ch + ' ch へ 数値\"' + val + '\" を送信');
 
 	};
 	savetoken.onclick = function() {
