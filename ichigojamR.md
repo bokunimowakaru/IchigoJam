@@ -49,7 +49,10 @@
 
 --------------------------------------------------------------------------------
 
-# IchigoJam GitHub Pages site
+# git.bokunimo.com GitHub Pages site
+[http://git.bokunimo.com/](http://git.bokunimo.com/)  
+
+## IchigoJam GitHub Pages site
 [http://git.bokunimo.com/IchigoJam/](http://git.bokunimo.com/IchigoJam/)  
 
 --------------------------------------------------------------------------------
