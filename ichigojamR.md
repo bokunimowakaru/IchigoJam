@@ -50,7 +50,7 @@
 --------------------------------------------------------------------------------
 
 # IchigoJam GitHub Pages site
-[http://git.bokunimo.com/IchigoJam/](http://git.bokunimo.com/IchigoJam/  
+[http://git.bokunimo.com/IchigoJam/](http://git.bokunimo.com/IchigoJam/)  
 
 --------------------------------------------------------------------------------
 
