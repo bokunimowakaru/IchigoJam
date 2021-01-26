@@ -47,7 +47,14 @@
 	$ make
 	$ ./petit15term
 
-参考文献
+--------------------------------------------------------------------------------
+
+# IchigoJam GitHub Pages site
+[http://git.bokunimo.com/IchigoJam/](http://git.bokunimo.com/IchigoJam/  
+
+--------------------------------------------------------------------------------
+
+## 参考文献
 
 IchigoJam BASIC 1.5β1、USBキーボード対応 RISC-V版 IchigoJam Rβ 出荷スタート！  
 https://fukuno.jig.jp/3103
