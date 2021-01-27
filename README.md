@@ -32,6 +32,12 @@ IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムお�
 
                      CC BY (C) 2015-2021 国野亘 (Wataru KUNINO)  
                                  [https://bokunimo.net/ichigojam/](https://bokunimo.net/ichigojam/)  
+
+----------------------------------------------------------------
+
+# git.bokunimo.com GitHub Pages site
+[http://git.bokunimo.com/](http://git.bokunimo.com/)  
+
 ----------------------------------------------------------------
 
 ## 参考文献
