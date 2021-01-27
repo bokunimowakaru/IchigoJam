@@ -60,7 +60,7 @@
 ## 参考文献
 
 IchigoJam BASIC 1.5β1、USBキーボード対応 RISC-V版 IchigoJam Rβ 出荷スタート！  
-https://fukuno.jig.jp/3103
+(https://fukuno.jig.jp/3103)
 
 GitHub IchigoJam/doc  
-https://github.com/IchigoJam/doc
+(https://github.com/IchigoJam/doc)
