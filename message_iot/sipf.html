@@ -169,7 +169,6 @@ window.onload = function() {
 		return val;
 	};
 	var makeB64String = function(s) {
-		console.log(window.btoa(s));
 		s = toKatakanaHalf(s);
 		console.log(window.btoa(s));
 		return window.btoa(s);
@@ -351,7 +350,7 @@ a {
 </head>
 <body>
 
-<h2>WebSocket 確認ツール Message IoT<br>さくらIoTプラットフォーム用<br></h2>
+<h2>WebSocket 確認ツール Message IoT<br>さくらのモノプラットフォーム用<br></h2>
 <div align="center"><table border="0" cellspacing="15">
 	<tr>
 		<td>WebSocket Token</td>
@@ -378,11 +377,11 @@ a {
 		<div align="center"><div id=output></div><br><button id=outputclear>clear</button></div></td>
 	</tr>
 </table></div>
-<div>WebSocket Token を入力すると、さくらIoTプラットフォームに接続します。<br>
+<div>WebSocket Token を入力すると、さくらのモノプラットフォームに接続します。<br>
 Device ID が分からないときは、接続後に、デバイス側からデータを送信してください。</div>
 <div id="credit">
 本アプリは<a href="http://fukuno.jig.jp/2121">http://fukuno.jig.jp/2121</a> <a href="http://fukuno.jig.jp/1695">1695</a> CC BY fukuno.jig.jpを基にしています。<br>
-国野亘が一部を改変（さくらIoTプラットフォーム対応）しました。<br>
+国野亘が一部を改変（さくらのモノプラットフォーム対応）しました。<br>
 <br>
 https://git.bokunimo.com/IchigoJam/message_iot/sipf.html<br>
 by Wataru KUNINO (<a href="https://bokunimo.net/">bokunimo.net</a>)
