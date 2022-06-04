@@ -168,6 +168,12 @@ window.onload = function() {
 		console.log(val);
 		return val;
 	};
+	var makeB64String = function(s) {
+		console.log(window.btoa(s));
+		s = toKatakanaHalf(s);
+		console.log(window.btoa(s));
+		return window.btoa(s);
+	};
 	var sendAscii = function(s) {
 		var ch = parseInt(channel.value);
 		if( !ch ) ch=0;
@@ -178,7 +184,7 @@ window.onload = function() {
 				const obj = {
 					device_id: module.value,
 					type: 'object',
-					payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'binary', value: makeHexString(s) } ]
+					payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'binary', value: makeB64String(s) } ]
 				};
 				logChirp = document.getElementById('logChirpChkBx');
 				if(logChirp.checked == true) mes(JSON.stringify(obj));
