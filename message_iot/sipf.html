@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- (c)taisukef CC BY  http://fukuno.jig.jp/ -->
+<!-- (c)taisukef CC BY	http://fukuno.jig.jp/ -->
 <html>
 <head>
 <meta charset='utf-8'/>
@@ -32,7 +32,7 @@ window.onload = function() {
 				ws = new WebSocket("wss://ws.sipf.iot.sakura.ad.jp/v0/" + token.value);
 				ws.onmessage = function(e) {
 					console.log(e.data);
-					logChirp = document.getElementById('logChirp');
+					logChirp = document.getElementById('logChirpChkBx');
 					if(logChirp.checked == true) 
 						mes(e.data);
 	//				var txt = e.data;
@@ -88,7 +88,7 @@ window.onload = function() {
 						var id = data.device_id;
 						var ch = data.payload[0];
 						var val = ch.value;
-						if (ch.type == "b") {
+						if (ch.type == "binary") {
 							var s = "";
 							for (var i = 0; i < val.length; i += 2) {
 								var n = parseInt(val.substring(i, i + 2), 16);
@@ -119,11 +119,12 @@ window.onload = function() {
 		}
 	}, 5000);
 	
-	var send = function(val) {
+	var sendInt = function(val) {
+		// 動作未確認 by 国野
 		const obj = {
-			module: module.value,
-			type: 'channels',
-			payload: { channels: [ { channel: 0, type: 'I', value: Number(val) } ] }
+			device_id: module.value,
+			type: 'object',
+			payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'int16', value: val } ]
 		};
 		ws.send(JSON.stringify(obj));
 		mes(module.value + " へ " + Number(val) + " を送信！");
@@ -142,11 +143,12 @@ window.onload = function() {
 		return val;
 	};
 	var sendAsciiAsLong = function(s) {
+		// 動作未確認 by 国野
 		var val = makeLong(s);
 		const obj = {
-			module: module.value,
-			type: 'channels',
-			payload: { channels: [ { channel: 0, type: 'L', value: val } ] }
+			device_id: module.value,
+			type: 'object',
+			payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'uint64', value: val } ]
 		};
 		ws.send(JSON.stringify(obj));
 	};
@@ -167,16 +169,39 @@ window.onload = function() {
 		return val;
 	};
 	var sendAscii = function(s) {
-//		sendAsciiAsLong(s);
 		var ch = parseInt(channel.value);
 		if( !ch ) ch=0;
-		const obj = {
-			module: module.value,
-			type: 'channels',
-			payload: { channels: [ { channel: ch, type: 'b', value: makeHexString(s) } ] }
-		};
-		ws.send(JSON.stringify(obj));
-		mes(module.value + ' の ' + ch + ' ch へ 文字列\"' + toKatakanaHalf(s) + '\" を送信');
+
+		if( module.value ){
+			binmode = document.getElementById('binmodeChkBx');
+			if(binmode.checked == true){
+				const obj = {
+					device_id: module.value,
+					type: 'object',
+					payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'binary', value: makeHexString(s) } ]
+				};
+				logChirp = document.getElementById('logChirpChkBx');
+				if(logChirp.checked == true) mes(JSON.stringify(obj));
+				console.log(obj);
+				console.log(obj.payload[0]);
+				ws.send(JSON.stringify(obj));
+				mes(module.value + ' の Tag' + ch + ' へ 文字列\"' + toKatakanaHalf(s) + '\"(Bin) を送信');
+			}else{
+				const obj = {
+					device_id: module.value,
+					type: 'object',
+					payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'string.utf8', value: s } ]
+				};
+				logChirp = document.getElementById('logChirpChkBx');
+				if(logChirp.checked == true) mes(JSON.stringify(obj));
+				console.log(obj);
+				console.log(obj.payload[0]);
+				ws.send(JSON.stringify(obj));
+				mes(module.value + ' の Tag' + ch + ' へ 文字列\"' + s + '\" を送信');
+			}
+		}else{
+			mes('Device ID を受信してください');
+		}
 	};
 	outputclear.onclick = function() {
 		output.innerHTML = "";
@@ -189,31 +214,38 @@ window.onload = function() {
 		if( !val ) val=0;
 		var ch = parseInt(channel.value);
 		if( !ch ) ch=0;
-		const obj = {
-			module: module.value,
-			type: 'channels',
-			payload: { channels: [ { channel: ch, type: 'I', value: val } ] }
-		};
-		ws.send(JSON.stringify(obj));
-		mes(module.value + ' の ' + ch + ' ch へ 数値\"' + val + '\" を送信');
-
+		if( module.value ){
+			const obj = {
+				device_id: module.value,
+				type: 'object',
+				payload: [ { tag: ch.toString(16).padStart(2,'0'), type: 'uint16', value: val } ]
+			};
+			logChirp = document.getElementById('logChirpChkBx');
+			if(logChirp.checked == true) mes(JSON.stringify(obj));
+			console.log(obj);
+			console.log(obj.payload[0]);
+			ws.send(JSON.stringify(obj));
+			mes(module.value + ' の Tag' + ch + ' へ 数値\"' + val + '\" を送信');
+		}else{
+			mes('Device ID を受信してください');
+		}
 	};
 	savetoken.onclick = function() {
-        console.log('save token');
-        console.log(token.value);
+		console.log('save token');
+		console.log(token.value);
 		localStorage.setItem('token', token.value);
 	};
 	loadtoken.onclick = function() {
-        console.log('load token');
+		console.log('load token');
 		token.value = localStorage.getItem('token');
 	};
 	savemodule.onclick = function() {
-        console.log('save module');
-        console.log(module.value);
+		console.log('save module');
+		console.log(module.value);
 		localStorage.setItem('module', module.value);
 	};
 	loadmodule.onclick = function() {
-        console.log('load module');
+		console.log('load module');
 		module.value = localStorage.getItem('module');
 	};
 };
@@ -313,7 +345,7 @@ a {
 </head>
 <body>
 
-<h2>WebSocket 確認ツール Message IoT - さくらIoTプラットフォーム版<br></h2>
+<h2>WebSocket 確認ツール Message IoT<br>さくらIoTプラットフォーム用<br></h2>
 <div align="center"><table border="0" cellspacing="15">
 	<tr>
 		<td>WebSocket Token</td>
@@ -324,30 +356,30 @@ a {
 		<td><input type="text" size="14" placeholder="00000" id=module>　<button id=savemodule>SAVE</button>　<button id=loadmodule>LOAD</button></td>
 	</tr>
 	<tr>
-		<td>Channel</td>
+		<td>Tag</td>
 		<td><input type="text" size="4" value="1" id=channel></td>
 	</tr>
 	<tr>
-		<td>Message</td>
-		<td><input type="text" size="10" placeholder="8chars text" id=sendmes>　<button id=sendmesbtn>送信</button></td>
+		<td>Message <input type="checkbox" id=binmodeChkBx checked>IchigoJam</td>
+		<td><input type="text" size="10" placeholder="8chars text" id=sendmes>　 <button id=sendmesbtn>送信</button></td>
 	</tr>
 	<tr>
 		<td>Value</td>
 		<td><input type="text" size="5" placeholder="value" id=sendval>　<button id=sendvalbtn>送信</button></td>
 	</tr>
 	<tr>
-		<td colspan=2>Log <input type="checkbox" id=logChirp>詳細(JSON)表示<br><br>
+		<td colspan=2>Log <input type="checkbox" id=logChirpChkBx>詳細(JSON)表示<br><br>
 		<div align="center"><div id=output></div><br><button id=outputclear>clear</button></div></td>
 	</tr>
 </table></div>
-
+<div>WebSocket Token を入力すると、さくらIoTプラットフォームに接続します。<br>
+Device ID が分からないときは、接続後に、デバイス側からデータを送信してください。</div>
 <div id="credit">
 本アプリは<a href="http://fukuno.jig.jp/2121">http://fukuno.jig.jp/2121</a> <a href="http://fukuno.jig.jp/1695">1695</a> CC BY fukuno.jig.jpを基にしています。<br>
-国野亘が一部を改変（TokenとID入力機能の追加とデバイス選択を無効化）しました。<br>
-ブラウザによっては保存機能が動作しない場合があります。その場合は<a href="index.html">通常版</a>を使用してください。<br>
-元ファイルはGitHubに保存してます。<br>
+国野亘が一部を改変（さくらIoTプラットフォーム対応）しました。<br>
+<br>
 https://git.bokunimo.com/IchigoJam/message_iot/sipf.html<br>
-<br>by Wataru KUNINO
+by Wataru KUNINO (<a href="https://bokunimo.net/">bokunimo.net</a>)
 </div>
 </body>
 </html>
