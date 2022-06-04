@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!-- (c)taisukef CC BY  http://fukuno.jig.jp/ -->
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Message IoT - sakura.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<script src="fukuno.js"></script>
+<!-- script src="sakura-setting-2.js" --><!-- /script -->
+<script>
+
+var ws = null;
+var wst;
+
+window.onload = function() {
+	var mes = function(data) {
+		var s = create("div");
+		s.textContent = data;
+		if (output.children.length > 0) {
+			output.insertBefore(s, output.children[0]);
+		} else {
+			output.appendChild(s);
+		}
+	};
+	
+	wst = setInterval(function() {
+		if (token.value) {
+			if (ws == null || ws.readyState != 1) {
+				if (ws != null)
+					ws.close();
+				ws = new WebSocket("wss://ws.sipf.iot.sakura.ad.jp/v0/" + token.value);
+				ws.onmessage = function(e) {
+					console.log(e.data);
+					logChirp = document.getElementById('logChirp');
+					if(logChirp.checked == true) 
+						mes(e.data);
+	//				var txt = e.data;
+					var data = JSON.parse(e.data);
+					var type = data.type;
+					if (type == "keepalive")
+						return;
+/*
+	sakura.ioのとき
+	{
+		"module":"u00000000000",
+		"type":"channels",
+		"datetime":"2017-04-02T23:48:12.327230761Z",
+		"payload":{
+			"channels":[{"channel":1,"type":"L","value":123,"datetime":"2017-04-02T23:48:12.275232242Z"}]
+		}
+	} (index.html, line 32)
+	↓
+	さくらIoTプラットフォームの場合
+	 {
+		"id":"00000000-0000-0000-0000-000000000000",
+		"device_id":"12345",
+		"timestamp_src":"1970-01-01T00:00:00.000Z",
+		"timestamp_platform_from_src":"2022-06-04T08:27:40.894Z",
+		"timestamp_platform_to_dst":"2022-06-04T08:27:40.915Z",
+		"type":"object",
+		"payload":[{"type":"uint32","tag":"01","value":123}]
+	}
+*/
+
+/* sakura.ioのとき			if (type == "channels") {
+	//					dump(data);
+	//					var id = getModule(data.module);
+						var id = data.module;
+						var ch = data.payload.channels[0];
+						var val = ch.value;
+						if (ch.type == "b") {
+							var s = "";
+							for (var i = 0; i < val.length; i += 2) {
+								var n = parseInt(val.substring(i, i + 2), 16);
+								n = deconvertHalfCode(n);
+								var c = String.fromCharCode(n);
+								s += c;
+							}
+							val = s;
+						}
+						mes(id + " から \"" + val + "\" を受信");
+
+					}
+	//				mes(e.data);
+*/
+					if (type == "object") {
+						var id = data.device_id;
+						var ch = data.payload[0];
+						var val = ch.value;
+						if (ch.type == "b") {
+							var s = "";
+							for (var i = 0; i < val.length; i += 2) {
+								var n = parseInt(val.substring(i, i + 2), 16);
+								n = deconvertHalfCode(n);
+								var c = String.fromCharCode(n);
+								s += c;
+							}
+							val = s;
+						}
+						mes(id + " から \"" + val + "\" を受信");
+						module.value = id;
+
+					}
+	//				mes(e.data);
+				};
+				ws.onclose = function() {
+	//				mes("close");
+					ws = null;
+				};
+				ws.onopen = function() {
+					mes("connected");
+				};
+				ws.onerror = function(event) {
+	//				mes("error");
+					ws = null;
+				};
+		    }
+		}
+	}, 5000);
+	
+	var send = function(val) {
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'I', value: Number(val) } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(module.value + " へ " + Number(val) + " を送信！");
+	};
+	var makeLong = function(s) {
+		s = toKatakana(s);
+		s = toHalf(s);
+		var val = 0;
+		for (var i = 0; i < Math.min(s.length, 6); i++) {
+			var c = s.charCodeAt(i);
+			c = convertHalfCode(c);
+			if (c >= 0x100)
+				c = 0xff;
+			val += c * Math.pow(2, 8 * i + 8);
+		}
+		return val;
+	};
+	var sendAsciiAsLong = function(s) {
+		var val = makeLong(s);
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: 0, type: 'L', value: val } ] }
+		};
+		ws.send(JSON.stringify(obj));
+	};
+	var makeHexString = function(s) {
+		s = toKatakanaHalf(s);
+		var val = "";
+		for (var i = 0; i < Math.min(s.length, 8); i++) {
+			var n = s.charCodeAt(i);
+			if (isNaN(n))
+				n = 0;
+			n = convertHalfCode(n);
+			var c = n.toString(16);
+			if (c.length == 1)
+				val += "0";
+			val += c;
+		}
+		console.log(val);
+		return val;
+	};
+	var sendAscii = function(s) {
+//		sendAsciiAsLong(s);
+		var ch = parseInt(channel.value);
+		if( !ch ) ch=0;
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: ch, type: 'b', value: makeHexString(s) } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(module.value + ' の ' + ch + ' ch へ 文字列\"' + toKatakanaHalf(s) + '\" を送信');
+	};
+	outputclear.onclick = function() {
+		output.innerHTML = "";
+	};
+	sendmesbtn.onclick = function() {
+		sendAscii(sendmes.value);
+	};
+	sendvalbtn.onclick = function() {
+		var val = parseInt(sendval.value);
+		if( !val ) val=0;
+		var ch = parseInt(channel.value);
+		if( !ch ) ch=0;
+		const obj = {
+			module: module.value,
+			type: 'channels',
+			payload: { channels: [ { channel: ch, type: 'I', value: val } ] }
+		};
+		ws.send(JSON.stringify(obj));
+		mes(module.value + ' の ' + ch + ' ch へ 数値\"' + val + '\" を送信');
+
+	};
+	savetoken.onclick = function() {
+        console.log('save token');
+        console.log(token.value);
+		localStorage.setItem('token', token.value);
+	};
+	loadtoken.onclick = function() {
+        console.log('load token');
+		token.value = localStorage.getItem('token');
+	};
+	savemodule.onclick = function() {
+        console.log('save module');
+        console.log(module.value);
+		localStorage.setItem('module', module.value);
+	};
+	loadmodule.onclick = function() {
+        console.log('load module');
+		module.value = localStorage.getItem('module');
+	};
+};
+
+// util
+var toKatakanaHalf = function(s) {
+	return toHalf(toKatakana(s));
+};
+var toKatakana = function(s) {
+	var katakana = [ "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "パ", "ビ", "ピ", "ブ", "プ", "ベ", "ペ", "ボ", "ポ", "ヴ", "ァ", "ア", "ィ", "イ", "ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ッ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ャ", "ヤ", "ュ", "ユ", "ョ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var hirakana = [ "が", "ぎ", "ぐ", "げ", "ご", "ざ", "じ", "ず", "ぜ", "ぞ", "だ", "ぢ", "づ", "で", "ど", "ば", "ぱ", "び", "ぴ", "ぶ", "ぷ", "べ", "ぺ", "ぼ", "ぽ", "ゔ", "ぁ", "あ", "ぃ", "い", "ぅ", "う", "ぇ", "え", "ぉ", "お", "か", "き", "く", "け", "こ", "さ", "し", "す", "せ", "そ", "た", "ち", "っ", "つ", "て", "と", "な", "に", "ぬ", "ね", "の", "は", "ひ", "ふ", "へ", "ほ", "ま", "み", "む", "め", "も", "ゃ", "や", "ゅ", "ゆ", "ょ", "よ", "ら", "り", "る", "れ", "ろ", "わ", "を", "ん", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var res = "";
+	for (var i = 0; i < s.length; i++) {
+		var c = s.substring(i, i + 1);
+		var flg = false;
+		for (var j = 0; j < hirakana.length; j++) {
+			if (c == hirakana[j]) {
+				res += katakana[j];
+				flg = true;
+				break;
+			}
+		}
+		if (!flg)
+			res += c;
+	}
+	return res;
+};
+var toHalf = function(s) {
+	var zen = [ "ガ", "ギ", "グ", "ゲ", "ゴ", "ザ", "ジ", "ズ", "ゼ", "ゾ", "ダ", "ヂ", "ヅ", "デ", "ド", "バ", "パ", "ビ", "ピ", "ブ", "プ", "ベ", "ペ", "ボ", "ポ", "ヴ", "ァ", "ア", "ィ", "イ", "ゥ", "ウ", "ェ", "エ", "ォ", "オ", "カ", "キ", "ク", "ケ", "コ", "サ", "シ", "ス", "セ", "ソ", "タ", "チ", "ッ", "ツ", "テ", "ト", "ナ", "ニ", "ヌ", "ネ", "ノ", "ハ", "ヒ", "フ", "ヘ", "ホ", "マ", "ミ", "ム", "メ", "モ", "ャ", "ヤ", "ュ", "ユ", "ョ", "ヨ", "ラ", "リ", "ル", "レ", "ロ", "ワ", "ヲ", "ン", "。", "「", "」", "、", "・", "ー", "゛", "゜" ];
+	var han = [ "ｶﾞ", "ｷﾞ", "ｸﾞ", "ｹﾞ", "ｺﾞ", "ｻﾞ", "ｼﾞ", "ｽﾞ", "ｾﾞ", "ｿﾞ", "ﾀﾞ", "ﾁﾞ", "ﾂﾞ", "ﾃﾞ", "ﾄﾞ", "ﾊﾞ", "ﾊﾟ", "ﾋﾞ", "ﾋﾟ", "ﾌﾞ", "ﾌﾟ", "ﾍﾞ", "ﾍﾟ", "ﾎﾞ", "ﾎﾟ", "ｳﾞ", "ｧ", "ｱ", "ｨ", "ｲ", "ｩ", "ｳ", "ｪ", "ｴ", "ｫ", "ｵ", "ｶ", "ｷ", "ｸ", "ｹ", "ｺ", "ｻ", "ｼ", "ｽ", "ｾ", "ｿ", "ﾀ", "ﾁ", "ｯ", "ﾂ", "ﾃ", "ﾄ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾋ", "ﾌ", "ﾍ", "ﾎ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ｬ", "ﾔ", "ｭ", "ﾕ", "ｮ", "ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ｦ", "ﾝ", "｡", "｢", "｣", "､", "･", "ｰ", "ﾞ", "ﾟ" ];
+	var res = "";
+	for (var i = 0; i < s.length; i++) {
+		var c = s.substring(i, i + 1);
+		var flg = false;
+		for (var j = 0; j < zen.length; j++) {
+			if (c == zen[j]) {
+				res += han[j];
+				flg = true;
+				break;
+			}
+		}
+		if (!flg)
+			res += c;
+	}
+	return res;
+};
+var convertHalfCode = function(c) {
+	if (c >= 0xff61 && c <= 0xff9f) {
+		c -= 0xff00 - 0x40;
+	}
+	return c;
+};
+var deconvertHalfCode = function(c) {
+	if (c >= 0xb0 && c <= 0xdf) {
+		c += 0xff00 - 0x40;
+	}
+	return c;
+};
+
+</script>
+<style>
+body {
+	margin: 0px;
+	padding: 20px;
+	text-align: center;
+	font-family: sans-serif;
+}
+#main {
+	font-size: 30px;
+}
+#btns {
+	margin: 1em;
+}
+.btn {
+	padding: 2em;
+	margin: 1em;
+}
+#outputclear {
+	margin: 0;
+}
+#output {
+	display: inline-block;
+	text-align: left;
+	margin: 0.1em 0 1em 0;
+	width: 100%;
+	padding: 0.5em;
+	border: 1px solid black;
+}
+#credit {
+	font-size: 12px;
+	margin-top: 20px;
+}
+a {
+	color: gray !important;
+}
+</style>
+</head>
+<body>
+
+<h2>WebSocket 確認ツール Message IoT - さくらIoTプラットフォーム版<br></h2>
+<div align="center"><table border="0" cellspacing="15">
+	<tr>
+		<td>WebSocket Token</td>
+		<td><input type="text" size="40" placeholder="00000000-0000-0000-0000-000000000000" id="token">　<button id=savetoken>SAVE</button>　<button id=loadtoken>LOAD</button></td>
+	</tr>
+	<tr>
+		<td>Device ID</td>
+		<td><input type="text" size="14" placeholder="00000" id=module>　<button id=savemodule>SAVE</button>　<button id=loadmodule>LOAD</button></td>
+	</tr>
+	<tr>
+		<td>Channel</td>
+		<td><input type="text" size="4" value="1" id=channel></td>
+	</tr>
+	<tr>
+		<td>Message</td>
+		<td><input type="text" size="10" placeholder="8chars text" id=sendmes>　<button id=sendmesbtn>送信</button></td>
+	</tr>
+	<tr>
+		<td>Value</td>
+		<td><input type="text" size="5" placeholder="value" id=sendval>　<button id=sendvalbtn>送信</button></td>
+	</tr>
+	<tr>
+		<td colspan=2>Log <input type="checkbox" id=logChirp>詳細(JSON)表示<br><br>
+		<div align="center"><div id=output></div><br><button id=outputclear>clear</button></div></td>
+	</tr>
+</table></div>
+
+<div id="credit">
+本アプリは<a href="http://fukuno.jig.jp/2121">http://fukuno.jig.jp/2121</a> <a href="http://fukuno.jig.jp/1695">1695</a> CC BY fukuno.jig.jpを基にしています。<br>
+国野亘が一部を改変（TokenとID入力機能の追加とデバイス選択を無効化）しました。<br>
+ブラウザによっては保存機能が動作しない場合があります。その場合は<a href="index.html">通常版</a>を使用してください。<br>
+元ファイルはGitHubに保存してます。<br>
+https://git.bokunimo.com/IchigoJam/message_iot/sipf.html<br>
+<br>by Wataru KUNINO
+</div>
+</body>
+</html>
