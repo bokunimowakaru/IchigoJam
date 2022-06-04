@@ -1,7 +1,10 @@
 # IchigoJam GitHub Pages site
 IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムおよびプログラムに必要な各種情報などの保存用フォルダ  
 
-## WebSocket 確認ツール Message IoT - sakura.io
+## WebSocket 確認ツール Message IoT さくらのモノプラットフォーム用
+[http://git.bokunimo.com/IchigoJam/message_iot/sipf.html](http://git.bokunimo.com/IchigoJam/message_iot/sipf.html)  
+
+### WebSocket 確認ツール Message IoT - sakura.io
 [http://git.bokunimo.com/IchigoJam/message_iot/index.html](http://git.bokunimo.com/IchigoJam/message_iot/index.html)  
 
 ## IchigoJam R
