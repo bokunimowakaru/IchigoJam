@@ -86,19 +86,26 @@ window.onload = function() {
 */
 					if (type == "object") {
 						var id = data.device_id;
-						var ch = data.payload[0];
-						var val = ch.value;
-						if (ch.type == "binary") {
-							var s = "";
-							for (var i = 0; i < val.length; i += 2) {
-								var n = parseInt(val.substring(i, i + 2), 16);
-								n = deconvertHalfCode(n);
-								var c = String.fromCharCode(n);
-								s += c;
+						var ss = "";
+						for (var i = 0; i < data.payload.length; i++) {
+							if( i > 0 ){
+								ss += "\" と \"";
 							}
-							val = s;
+							var ch = data.payload[i];
+							if (ch.type == "binary") {
+								var s = "";
+								for (var i = 0; i < val.length; i += 2) {
+									var n = parseInt(val.substring(i, i + 2), 16);
+									n = deconvertHalfCode(n);
+									var c = String.fromCharCode(n);
+									s += c;
+								}
+								ss += s;
+							}else{
+								ss += String(ch.value);
+							}
 						}
-						mes(id + " から \"" + val + "\" を受信");
+						mes(id + " から \"" + ss + "\" を受信");
 						module.value = id;
 
 					}
