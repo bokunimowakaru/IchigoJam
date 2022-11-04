@@ -39,14 +39,14 @@ IchigoJam BASIC言語で書かれたIchigoJam用サンプルプログラムお�
 ----------------------------------------------------------------
 
 # git.bokunimo.com GitHub Pages site
-[http://git.bokunimo.com/](http://git.bokunimo.com/)  
+[https://git.bokunimo.com/](https://git.bokunimo.com/)  
 
 ----------------------------------------------------------------
 
 ## 参考文献
 
 作成にあたり以下の情報を参照しました。  
-- http://ichigojam.net/IchigoJam.html CC BY http://ichigojam.net/  
+- https://ichigojam.net/IchigoJam.html CC BY https://ichigojam.net/  
 - Facebook IchigoJam-FANグループ https://www.facebook.com/groups/ichigojam/  
 - IchigoJam BASIC コマンド一覧 https://github.com/fu-sen/IchigoJam-BASIC  
 - http://15jamrecipe.jimdo.com/周辺機器/外部記憶装置-eeprom/  
